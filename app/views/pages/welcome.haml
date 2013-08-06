@@ -1,0 +1,7 @@
+%h1 Welcome
+- if user_signed_in?
+  You are logged in, edit your site by going to the #{link_to 'Admin Panel', '/admin'}.
+  = link_to 'Logout', destroy_user_session_path, method: :delete
+- else
+  %p To start building your site, register as a user and #{link_to 'login', new_user_session_path}.
+  = link_to 'Register', new_user_registration_path

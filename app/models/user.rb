@@ -37,4 +37,17 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  # ZenCMS Fields
+  field :admin_level, type: Integer, :default => 0
+
+  before_create :set_first_user_admin
+
+  def is_admin?
+    return self.admin_level > 0
+  end
+
+  def set_first_user_admin
+    self.admin_level = 1 if User.count == 0
+  end
 end
