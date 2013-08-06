@@ -3,6 +3,16 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
+gem 'devise'
+gem 'mongoid', github: 'mongoid/mongoid' #, '~> 3.0.0'
+gem 'haml'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'mongoid-rspec'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

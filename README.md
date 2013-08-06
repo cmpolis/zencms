@@ -6,6 +6,9 @@ A model oriented CMS for developers, designers and their clients.
 Tech
 -------
 Rails 4
+
 MongoDB
+
 Liquid Templates
+
 Foundation
