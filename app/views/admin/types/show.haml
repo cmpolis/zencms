@@ -1,0 +1,15 @@
+%h1 Type: #{@type}
+- for property in @type.properties
+  .property
+    = property
+    = link_to 'Remove', admin_type_property_path(@type, property), method: :delete
+.new-property
+  %h3 New Property
+  = form_for :property, url: admin_type_properties_path(@type) do |f|
+    = f.label :name
+    = f.text_field :name
+    %br
+    = f.label :kind
+    = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
+    %br
+    = f.submit 'Add'

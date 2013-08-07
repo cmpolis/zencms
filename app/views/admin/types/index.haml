@@ -1,0 +1,11 @@
+%h1 Types
+- for type in @types
+  .type
+    = link_to type, admin_type_path(type)
+.new-property
+  %h3 New Type
+  = form_for :type, url: admin_types_path do |f|
+    = f.label :name
+    = f.text_field :name
+    %br
+    = f.submit 'Add'

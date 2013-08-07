@@ -13,7 +13,9 @@ Zencms::Application.routes.draw do
   namespace :admin do
     get '', to: 'dashboard#index', as: :dashboard
     resources :users
-    resources :types
+    resources :types do
+      resources :properties
+    end
     resources :entities
     resources :collections
     resources :styles

@@ -11,4 +11,9 @@ class Property
   validates :kind, inclusion: KINDS
 
   embedded_in :type
+
+  def to_s
+    self.name
+  end
+
 end
