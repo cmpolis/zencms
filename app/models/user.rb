@@ -40,6 +40,9 @@ class User
 
   # ZenCMS Fields
   field :admin_level, type: Integer, :default => 0
+  field :username, type: String
+
+  validates :username, presence: true, uniqueness: true
 
   before_create :set_first_user_admin
 

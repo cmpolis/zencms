@@ -12,6 +12,8 @@ group :development, :test do
   gem 'mongoid-rspec'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'capybara'
 end
 
 # Use SCSS for stylesheets

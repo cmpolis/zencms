@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %title ZenCMS::Admin
+    = stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true)
+    = javascript_include_tag("application", "data-turbolinks-track" => true)
+    = csrf_meta_tags
+
+  %body
+    .admin-nav
+      = link_to 'Types', admin_types_path
+      = link_to 'Collections', admin_collections_path
+      = link_to 'Layouts', admin_layouts_path
+      = link_to 'Styles', admin_styles_path
+      = link_to 'Users', admin_users_path
+      = link_to 'Config', admin_config_path
+      = link_to 'Logout', destroy_user_session_path, method: :delete
+    = yield
+    %p &copy; ZenCMS 2013
