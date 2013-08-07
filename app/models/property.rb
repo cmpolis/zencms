@@ -16,4 +16,7 @@ class Property
     self.name
   end
 
+  def required?
+    self.req
+  end
 end

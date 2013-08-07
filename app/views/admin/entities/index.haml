@@ -1,0 +1,24 @@
+%h1 #{@type.name}: #{@type.entities.count}
+
+%table
+  %tr
+    - for prop in @type.properties
+      %td #{prop}
+    %td Remove
+  - for entity in @type.entities
+    %tr
+      - for prop in @type.properties
+        %td #{entity.values[prop.to_s]}
+      %td= link_to 'Remove', admin_destroy_entity_path(@type, entity), method: :delete
+
+.new-entity
+  = form_for :entity, url: admin_create_entity_path(@type) do |f|
+    - for prop in @type.properties
+      .field
+        = f.label "values[#{prop.name}]", "#{prop.name.capitalize}"
+        = f.text_field "values[#{prop.name}]"
+        - if prop.required?
+          (required)
+
+    = f.submit 'Create'
+

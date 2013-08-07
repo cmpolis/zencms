@@ -6,9 +6,9 @@ describe 'Type' do
     login_as(@user, scope: :user)
 
     3.times do
-      @properties = [FactoryGirl.build(:property),
-                     FactoryGirl.build(:property)]
-      @type = FactoryGirl.create(:type, properties: @properties)
+      @props = [FactoryGirl.build(:property),
+                FactoryGirl.build(:property)]
+      @type = FactoryGirl.create(:type, properties: @props)
     end
   end
 

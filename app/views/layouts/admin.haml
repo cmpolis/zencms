@@ -14,6 +14,8 @@
       = link_to 'Styles', admin_styles_path
       = link_to 'Users', admin_users_path
       = link_to 'Config', admin_config_path
+      - for type in @types do
+        = link_to type, admin_entity_list_path(type.name)
       = link_to 'Logout', destroy_user_session_path, method: :delete
     = yield
     %p &copy; ZenCMS 2013

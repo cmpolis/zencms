@@ -14,18 +14,27 @@ describe Type do
   end
 
   it 'can embed many properties' do
-    @properties = [FactoryGirl.build(:property), 
-                   FactoryGirl.build(:property)]
-    @type = FactoryGirl.create(:type, properties: @properties)
+    @props = [FactoryGirl.build(:property), 
+              FactoryGirl.build(:property)]
+    @type = FactoryGirl.create(:type, properties: @props)
 
     @type.should be_valid
     @type.properties.should have(2).items
   end
 
+  it 'can have entities' do
+    @props = [FactoryGirl.build(:property),
+              FactoryGirl.build(:property)]
+    @type = FactoryGirl.create(:type, properties: @props)
+    @entity = Entity.create(type: @type, values: { @props[0].name => 'a',
+                                                   @props[1].name => 'b'})
+    @type.entities.should have(1).items
+  end
+
   it 'must have uniquely named properties' do
-    @properties = [FactoryGirl.build(:property, name: 'same'), 
-                   FactoryGirl.build(:property, name: 'same')]
-    @type = FactoryGirl.build(:type, properties: @properties)
+    @props = [FactoryGirl.build(:property, name: 'same'), 
+              FactoryGirl.build(:property, name: 'same')]
+    @type = FactoryGirl.build(:type, properties: @props)
     @type.should_not be_valid
   end
 

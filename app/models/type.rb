@@ -6,6 +6,7 @@ class Type
   validate :uniquely_named_properties
 
   embeds_many :properties
+  has_many :entities
 
   def to_s
     self.name

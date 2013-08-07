@@ -16,11 +16,17 @@ Zencms::Application.routes.draw do
     resources :types do
       resources :properties
     end
-    resources :entities
     resources :collections
     resources :styles
     resources :layouts
     resource :config
+
+    # Dynamic resource names...
+    get 'entity/:type_name', to: 'entities#index', as: 'entity_list'
+    get 'entity/:type_name/new', to: 'entities#new', as: 'new_list'
+    get 'entity/:type_name/:id', to: 'entities#show', as: 'entity'
+    post 'entity/:type_id', to: 'entities#create', as: 'create_entity'
+    delete 'entity/:type_id/:id', to: 'entities#destroy', as: 'destroy_entity'
   end
 
 end

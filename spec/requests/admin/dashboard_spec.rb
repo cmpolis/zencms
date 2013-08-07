@@ -18,6 +18,17 @@ describe 'Dashboard' do
       page.should have_link 'Users'
       page.should have_link 'Config'
     end
+
+    it "Links to each type" do
+      @props = [FactoryGirl.build(:property),
+                FactoryGirl.build(:property)]
+      @type = FactoryGirl.create(:type, properties: @props)
+      visit admin_dashboard_path
+      page.should have_link @type.name
+
+      click_link @type.name
+      page.should have_content @type.name
+    end
   end
 
 end
