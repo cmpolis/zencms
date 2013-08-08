@@ -1,10 +1,29 @@
 class Admin::LayoutsController < AdminController
 
   def index
-    @layoutss = Layout.all.to_a
+    @layouts = Layout.all.to_a
   end
   
   def show
-    @layouts = Layout.find(params[:id])
+    @layout = Layout.find(params[:id])
+  end
+
+  def create
+    @layout = Layout.new(params[:layout].permit(:name, :content))
+    if @layout.save
+      redirect_to admin_layout_path(@layout)
+    else
+      render text: "#{@layout.errors}"
+    end
+  end
+
+  def update
+    @layout = Layout.find(params[:id])
+    if @layout.update_attributes(params[:layout].permit(:content))
+ 
+    else
+
+    end
+    redirect_to admin_layout_path(@layout)
   end
 end

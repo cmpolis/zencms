@@ -25,4 +25,15 @@ class Admin::TypesController < AdminController
       render text: "#{@type.errors}"
     end
   end
+
+  def update
+    @type = Type.find(params[:id])
+    @type.update_attributes(params[:type].permit(:primary_property))
+    if params[:type][:layout]
+      @layout = params[:type][:layout].blank? ? nil : Layout.find(params[:type][:layout])
+      @type.layout = @layout
+      @type.save
+    end
+    redirect_to admin_type_path(@type)
+  end
 end

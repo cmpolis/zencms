@@ -1,12 +1,15 @@
 class Type
   include Mongoid::Document
   field :name, type: String
+  field :primary_property, type: String
 
   validates :name, presence: true, uniqueness: true
   validate :uniquely_named_properties
+  validate :primary_property_is_a_property
 
   embeds_many :properties
   has_many :entities
+  belongs_to :layout
 
   def to_s
     self.name
@@ -16,6 +19,13 @@ class Type
     names = self.properties.collect(&:name)
     if names.uniq.length != names.length
       errors.add(:properties, "can't have duplicate names")
+    end
+  end
+ 
+  def primary_property_is_a_property
+    if self.primary_property and 
+       self.properties.collect(&:name).exclude? primary_property
+      errors.add(:primary_property, "primary property is not a property")
     end
   end
 

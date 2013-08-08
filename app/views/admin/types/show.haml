@@ -3,6 +3,20 @@
   .property
     = property
     = link_to 'Remove', admin_type_property_path(@type, property), method: :delete
+.settings
+  %h3 Settings
+  = form_for @type, url: admin_type_path(@type) do |f|
+    = f.label :layout
+    = f.select :layout, Layout.all.collect { |l| [l.name, l.id] }, 
+                  selected: @type.layout ? @type.layout.id : '', 
+                  include_blank: true
+    %br
+    = f.label :primary_property, 'Primary Property'
+    = f.select :primary_property, @type.properties.collect(&:name),
+                  selected: @type.primary_property,
+                  include_blank: false
+    %br
+    = f.submit 'Update'
 .new-property
   %h3 New Property
   = form_for :property, url: admin_type_properties_path(@type) do |f|

@@ -1,0 +1,14 @@
+%h1 Layouts
+- for layout in @layouts
+  .layout
+    = link_to layout, admin_layout_path(layout)
+.new-layout
+  %h3 New Layout
+  = form_for :layout, url: admin_layouts_path do |f|
+    = f.label :name
+    = f.text_field :name
+    %br
+    = f.label :content
+    = f.text_area :content
+    %br
+    = f.submit 'Add'

@@ -34,31 +34,23 @@ describe 'Entity' do
   end
 
   describe "Create Entity" do
+    before { visit "/admin/entity/#{@type}" }
+
     it "Creates an entity" do
-      visit "/admin/entity/#{@type}"
-
-      puts page
-
       expect {
         fill_in @props[0].name.capitalize, with: 'Sample Value for 1'
         fill_in @props[1].name.capitalize, with: 'Another'
         click_on 'Create'
       }.to change(Entity, :count).by(1)
-      
       page.should have_content 'Another'
     end
 
     it "Requires required attributes" do
-      visit "/admin/entity/#{@type}"
-      
-      puts page.body
-
       expect {
         fill_in @props[0].name.capitalize, with: '' # req field
         fill_in @props[1].name.capitalize, with: 'Another'
         click_on 'Create'
       }.to_not change(Entity, :count).by(1)
-      
       page.should_not have_content 'Another'
     end
   end

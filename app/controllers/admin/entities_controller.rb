@@ -23,7 +23,6 @@ class Admin::EntitiesController < AdminController
     @type = Type.find(params[:type_id])
     @entity = @type.entities.build(
                params[:entity].permit(:values => params[:entity][:values].keys))
-    puts " >> #{@entity.valid?}"
     if @entity.save
     
     else

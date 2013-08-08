@@ -1,0 +1,6 @@
+%h1 Layout: #{@layout}
+= form_for @layout, url: admin_layout_path(@layout) do |f|
+  = f.label :content
+  = f.text_area :content
+  %br
+  = f.submit 'Update'

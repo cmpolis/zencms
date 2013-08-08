@@ -38,9 +38,26 @@ describe Type do
     @type.should_not be_valid
   end
 
+  it 'must have a primary property that is a property' do
+    @props = [FactoryGirl.build(:property), 
+              FactoryGirl.build(:property)]
+    @type = FactoryGirl.build(:type, properties: @props)
+    @type.primary_property = 'ZZZ IJDFI NSF INVALID'
+    @type.should_not be_valid
+    @type.primary_property = @props[0].name
+    @type.should be_valid
+  end
+
   it 'must have valid kinds of properties' do
     FactoryGirl.build(:property, kind: :INVALIDKIND).should_not be_valid
     FactoryGirl.build(:property, kind: :string).should be_valid
+  end
+
+  it 'can have a layout' do
+    @layout = FactoryGirl.create(:layout)
+    @type = FactoryGirl.create(:type, layout: @layout)
+    @type.should be_valid
+    @type.layout.should_not be_nil
   end
 
 end
