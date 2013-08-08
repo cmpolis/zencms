@@ -2,13 +2,20 @@ class Entity
   include Mongoid::Document
 
   field :values, type: Hash, default: Hash.new
+  field :default_path, type: String
 
   belongs_to :type
 
   validates :type, presence: true
+  validates :default_path, uniqueness: true, allow_blank: true
   validate :has_required_values
 
   before_validation :convert_value_keys_to_strings
+  before_create :generate_default_path
+
+  def self.with_path path
+    self.where(default_path: path).first
+  end
 
   def has_required_values
     return if self.type.nil?
@@ -28,6 +35,16 @@ class Entity
         self.values[key.to_s] = self.values[key]
         self.values.delete(key)
       end
+    end
+  end
+
+  def generate_default_path
+    return if self.default_path
+    prop_name = self.type.primary_property
+    if prop_name and self.values[prop_name]
+      self.default_path = self.values[prop_name].parameterize
+    else
+      self.default_path = self.id
     end
   end
 

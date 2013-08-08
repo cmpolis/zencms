@@ -34,4 +34,18 @@ describe Entity do
     @entity.values['first'].should eq 'value'
   end
 
+  it 'must have a unique default path' do
+    @entity.default_path = 'testpath'
+    @entity.save
+    FactoryGirl.build(:entity, type: @type, 
+                               default_path: 'testpath').should_not be_valid 
+  end
+
+  it 'generates default paths' do
+    @type.update_attributes(primary_property: 'first')
+    @entity.values['first'] = 'This IS a test'
+    @entity.save
+    @entity.default_path.should eq 'this-is-a-test'
+  end
+
 end

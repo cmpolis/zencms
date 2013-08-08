@@ -29,4 +29,6 @@ Zencms::Application.routes.draw do
     delete 'entity/:type_id/:id', to: 'entities#destroy', as: 'destroy_entity'
   end
 
+  get ':path', to: 'pages#show', as: 'cms_page'
+
 end

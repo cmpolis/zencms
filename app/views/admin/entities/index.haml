@@ -4,11 +4,20 @@
   %tr
     - for prop in @type.properties
       %td #{prop}
+    %td Path
+    %td Visit
+    %td Edit
     %td Remove
   - for entity in @type.entities
     %tr
       - for prop in @type.properties
         %td #{entity.values[prop.to_s]}
+      - if entity.default_path
+        %td= link_to 'Visit', cms_page_path(entity.default_path)
+      - else
+        %td -
+      %td= entity.default_path || 'Path not set'
+      %td= link_to 'Edit', admin_entity_path(@type, entity)
       %td= link_to 'Remove', admin_destroy_entity_path(@type, entity), method: :delete
 
 .new-entity

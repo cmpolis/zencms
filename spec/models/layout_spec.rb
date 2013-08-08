@@ -28,17 +28,17 @@ describe Layout do
     FactoryGirl.build(:layout, name: nil).should_not be_valid
   end
 
-  it 'can generate HTML with an entit' do
+  it 'can generate HTML with an entity' do
     @props = [FactoryGirl.build(:property, name: 'name'),
               FactoryGirl.build(:property, name: 'color')]
-     @layout = FactoryGirl.create(:layout, content:"<h1>{{ mytype.color }}</h1>")
-     @type = FactoryGirl.create(:type, properties: @props, 
-                                       name: 'mytype',
-                                       layout: @layout)
-     @entity = FactoryGirl.create(:entity, type: @type, 
-                                           values: { name: 'Bob',
-                                                     color: 'Red' })        
-     @layout.parse_with_entity(@entity).should eq "<h1>Red</h1>"
+    @layout = FactoryGirl.create(:layout, content:"<h1>{{ mytype.color }}</h1>")
+    @type = FactoryGirl.create(:type, properties: @props, 
+                                      name: 'mytype',
+                                      layout: @layout)
+    @entity = FactoryGirl.create(:entity, type: @type, 
+                                          values: { name: 'Bob',
+                                                    color: 'Red' })        
+    @layout.parse_with_entity(@entity).should eq "<h1>Red</h1>"
   end
 
 end
