@@ -31,4 +31,8 @@ class Entity
     end
   end
 
+  def to_liquid
+    self.values
+  end
+
 end
