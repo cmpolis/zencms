@@ -22,12 +22,12 @@ describe 'Dashboard' do
     it "Links to each type" do
       @props = [FactoryGirl.build(:property),
                 FactoryGirl.build(:property)]
-      @type = FactoryGirl.create(:type, properties: @props)
+      @type = FactoryGirl.create(:type, name: 'dog', properties: @props)
       visit admin_dashboard_path
-      page.should have_link @type.name
+      page.should have_link 'Dogs'
 
-      click_link @type.name
-      page.should have_content @type.name
+      click_link 'Dogs'
+      page.should have_content @props.first.name
     end
   end
 

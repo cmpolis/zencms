@@ -1,4 +1,4 @@
-%h1 #{@type.name}: #{@type.entities.count}
+%h2 #{@type.plural_name}
 
 %table
   %tr
@@ -12,22 +12,23 @@
     %tr
       - for prop in @type.properties
         %td #{entity.values[prop.to_s]}
+      %td= entity.default_path || 'Path not set'
       - if entity.default_path
         %td= link_to 'Visit', cms_page_path(entity.default_path)
       - else
         %td -
-      %td= entity.default_path || 'Path not set'
       %td= link_to 'Edit', admin_entity_path(@type, entity)
       %td= link_to 'Remove', admin_destroy_entity_path(@type, entity), method: :delete
 
 .new-entity
-  = form_for :entity, url: admin_create_entity_path(@type) do |f|
-    - for prop in @type.properties
-      .field
-        = f.label "values[#{prop.name}]", "#{prop.name.capitalize}"
-        = f.text_field "values[#{prop.name}]"
-        - if prop.required?
-          (required)
-
-    = f.submit 'Create'
-
+  %fieldset
+    %legend New #{@type.name.titleize}
+    = form_for :entity, url: admin_create_entity_path(@type) do |f|
+      - for prop in @type.properties
+        .row
+          .small-4.columns
+            = f.label "values[#{prop.name}]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}"
+            = f.text_field "values[#{prop.name}]"
+      .row
+        .small-4.columns
+          = f.submit 'Create', class: 'small button'

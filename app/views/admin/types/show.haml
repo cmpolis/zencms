@@ -1,29 +1,42 @@
-%h1 Type: #{@type}
-- for property in @type.properties
-  .property
-    = property
-    = link_to 'Remove', admin_type_property_path(@type, property), method: :delete
-.settings
-  %h3 Settings
+%h2 #{@type}
+
+%fieldset
+  %legend Properties
+  - for property in @type.properties
+    .property
+      = property
+      = link_to 'Remove', admin_type_property_path(@type, property), method: :delete
+
+%fieldset
+  %legend Settings
   = form_for @type, url: admin_type_path(@type) do |f|
-    = f.label :layout
-    = f.select :layout, Layout.all.collect { |l| [l.name, l.id] }, 
-                  selected: @type.layout ? @type.layout.id : '', 
-                  include_blank: true
-    %br
-    = f.label :primary_property, 'Primary Property'
-    = f.select :primary_property, @type.properties.collect(&:name),
-                  selected: @type.primary_property,
-                  include_blank: false
-    %br
-    = f.submit 'Update'
-.new-property
-  %h3 New Property
+    .row
+      .small-4.columns
+        = f.label :layout
+        = f.select :layout, Layout.all.collect { |l| [l.name, l.id] }, 
+                      selected: @type.layout ? @type.layout.id : '', 
+                      include_blank: true
+    .row
+      .small-4.columns
+        = f.label :primary_property, 'Primary Property'
+        = f.select :primary_property, @type.properties.collect(&:name),
+                    selected: @type.primary_property,
+                    include_blank: false
+    .row
+      .small-4.columns
+        = f.submit 'Update', class: 'small button'
+
+%fieldset
+  %legend New Property
   = form_for :property, url: admin_type_properties_path(@type) do |f|
-    = f.label :name
-    = f.text_field :name
-    %br
-    = f.label :kind
-    = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
-    %br
-    = f.submit 'Add'
+    .row
+      .small-4.columns
+        = f.label :name
+        = f.text_field :name
+    .row
+      .small-4.columns
+        = f.label :kind
+        = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
+    .row
+      .small-4.columns
+        = f.submit 'Add', class: 'small button'

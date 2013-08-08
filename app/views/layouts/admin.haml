@@ -7,15 +7,27 @@
     = csrf_meta_tags
 
   %body
-    .admin-nav
-      = link_to 'Types', admin_types_path
-      = link_to 'Collections', admin_collections_path
-      = link_to 'Layouts', admin_layouts_path
-      = link_to 'Styles', admin_styles_path
-      = link_to 'Users', admin_users_path
-      = link_to 'Config', admin_config_path
-      - for type in @types do
-        = link_to type, admin_entity_list_path(type.name)
-      = link_to 'Logout', destroy_user_session_path, method: :delete
-    = yield
-    %p &copy; ZenCMS 2013
+    %nav.top-bar
+      %ul.title-area
+        %li.name
+          %h1= link_to 'ZenCMS Admin', admin_dashboard_path
+      .top-bar-section
+        %ul.right
+          %li
+            = link_to 'Logout', destroy_user_session_path, method: :delete
+    .content
+      .row
+        .large-9.push-3.columns
+          = yield
+        .large-3.pull-9.columns
+          .section-container
+            - for pair in [['Types', admin_types_path], ['Collections', admin_collections_path], ['Layouts', admin_layouts_path], ['Styles', admin_styles_path], ['Users', admin_users_path], ['Config', admin_config_path]]
+              %section.section
+                %p.title= link_to pair[0], pair[1]
+            - for type in @types do
+              %section.section
+                %p.title= link_to type.plural_name, admin_entity_list_path(type.name)
+    .footer
+      %hr
+      .row
+        %p &copy; ZenCMS 2013

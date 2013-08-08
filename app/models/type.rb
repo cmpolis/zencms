@@ -7,12 +7,17 @@ class Type
   validate :uniquely_named_properties
   validate :primary_property_is_a_property
 
+  before_create :normalize_name
   embeds_many :properties
   has_many :entities
   belongs_to :layout
 
   def to_s
     self.name
+  end
+
+  def plural_name
+    self.name.pluralize.titleize
   end
 
   def uniquely_named_properties
@@ -27,6 +32,11 @@ class Type
        self.properties.collect(&:name).exclude? primary_property
       errors.add(:primary_property, "primary property is not a property")
     end
+  end
+
+  def normalize_name
+    return if self.name.nil?
+    self.name = self.name.downcase.singularize
   end
 
 end

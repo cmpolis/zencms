@@ -10,7 +10,7 @@ describe 'Type' do
       @layouts << FactoryGirl.create(:layout)
       @props = [FactoryGirl.build(:property),
                 FactoryGirl.build(:property)]
-      @type = FactoryGirl.create(:type, properties: @props)
+      @type = FactoryGirl.create(:type, name: 'Dog', properties: @props)
     end
   end
 
@@ -19,16 +19,16 @@ describe 'Type' do
 
     it "shows list of all types" do
       for type in Type.all do
-        page.should have_link type.name
+        page.should have_link type.name.titleize
       end
     end
 
     it "allows for creating types and redirects to new type" do
       expect {
-        fill_in 'Name', with: 'newTypeFoobar'
+        fill_in 'Name', with: 'cats'
         click_on 'Add'
       }.to change(Type, :count).by(1)
-      page.should have_content 'newTypeFoobar'
+      page.should have_content 'cat'
     end
   end
 

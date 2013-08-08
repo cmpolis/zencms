@@ -1,14 +1,22 @@
-%h1 Layouts
-- for layout in @layouts
-  .layout
-    = link_to layout, admin_layout_path(layout)
+%h2 Layouts
+
+.section-container
+  - for layout in @layouts
+    %section.section
+      %p.title
+        = link_to layout, admin_layout_path(layout)
 .new-layout
-  %h3 New Layout
-  = form_for :layout, url: admin_layouts_path do |f|
-    = f.label :name
-    = f.text_field :name
-    %br
-    = f.label :content
-    = f.text_area :content
-    %br
-    = f.submit 'Add'
+  %fieldset
+    %legend New Layout
+    = form_for :layout, url: admin_layouts_path do |f|
+      .row
+        .small-4.columns
+          = f.label :name
+          = f.text_field :name
+      .row
+        .small-4.columns
+          = f.label :content
+          = f.text_area :content
+      .row
+        .small-4.columns
+          = f.submit 'Add', class: 'small button'

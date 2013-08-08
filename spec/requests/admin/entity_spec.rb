@@ -15,7 +15,7 @@ describe 'Entity' do
       visit "/admin/entity/#{@type}"
 
       page.status_code.should be 200
-      page.should have_content @type.name
+      page.should have_content @type.name.titleize
     end
 
     it "Shows a list of entities for your type and their attributes" do
