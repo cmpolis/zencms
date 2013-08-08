@@ -2,5 +2,12 @@
 = form_for @layout, url: admin_layout_path(@layout) do |f|
   = f.label :content
   = f.text_area :content, class: 'layout-content-editor'
-  %br
-  = f.submit 'Update'
+  .row
+    .small-4.columns
+      = f.label :parent_id, 'Parent Layout'
+      = f.select :parent_id, Layout.all.collect { |l| [l.name, l.id] },
+                          selected: @layout.parent ? @layout.parent.id : '',
+                          include_blank: true
+  .row
+    .small-4.columns
+      = f.submit 'Update'

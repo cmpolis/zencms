@@ -19,7 +19,7 @@ class Admin::LayoutsController < AdminController
 
   def update
     @layout = Layout.find(params[:id])
-    if @layout.update_attributes(params[:layout].permit(:content))
+    if @layout.update_attributes(params[:layout].permit(:content, :parent_id))
  
     else
 

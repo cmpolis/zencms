@@ -41,4 +41,23 @@ describe Layout do
     @layout.parse_with_entity(@entity).should eq "<h1>Red</h1>"
   end
 
+  it 'can have a parent layout' do
+    @parent = FactoryGirl.create(:layout, content:"<p>Parent content</p>{{ child }}")
+    @child = FactoryGirl.create(:layout, content:"<h1>Child content</h1>")
+    @child.parent = @parent
+    @child.save
+    @parent.child_layouts.should have(1).items
+    @child.parent.should be @parent
+  end
+
+  it 'gets rendered inside a parent' do
+    @parent = FactoryGirl.create(:layout, content:"<p>Parent content</p>{{ child }}")
+    @child = FactoryGirl.create(:layout, content:"<h1>Child content</h1>")
+    @child.parent = @parent
+    @child.save
+    result = @child.parse
+    result.should include 'Parent'
+    result.should include 'Child'
+  end
+
 end

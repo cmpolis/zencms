@@ -27,4 +27,14 @@ describe Admin::LayoutsController do
     end
   end
 
+  describe "PUT #update" do
+    it "can update attributes" do
+      @parent = Layout.first
+      put :update, id: @layout, layout: { content: 'content change',
+                                          parent_id: @parent }
+      @layout.reload.content.should eql 'content change'
+      @layout.parent.name.should eql @parent.name
+    end
+  end
+
 end
