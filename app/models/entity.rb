@@ -1,5 +1,6 @@
 class Entity
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :values, type: Hash, default: Hash.new
   field :default_path, type: String

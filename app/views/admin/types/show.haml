@@ -2,10 +2,19 @@
 
 %fieldset
   %legend Properties
-  - for property in @type.properties
-    .property
-      = property
-      = link_to 'Remove', admin_type_property_path(@type, property), method: :delete
+  .section-container.accordian{'data-section' => 'accordian'}
+    - @type.properties.each_with_index do |property, ndx|
+      %section.section
+        %p.title
+          = link_to property, "#panel#{ndx}"
+        .content
+          %p{'data-slug' => "panel#{ndx}"}
+            = form_for property, url: admin_type_property_path(@type, property) do |f|
+              = label :req, 'Require property?'
+              = check_box :property, :req, {checked: property.req}, 'true', 'false'
+              %br
+              = f.submit 'Update Property', class: 'tiny button'
+            = link_to 'Remove', admin_type_property_path(@type, property), method: :delete, class: 'tiny button'
 
 %fieldset
   %legend Settings

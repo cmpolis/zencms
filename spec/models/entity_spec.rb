@@ -48,4 +48,13 @@ describe Entity do
     @entity.default_path.should eq 'this-is-a-test'
   end
 
+  it 'should track created_at and updated_at' do
+    @entity.save
+    @entity.created_at.should_not be_nil
+    @entity.update_attributes(values: { :first => 'value' })
+    @entity.updated_at.should_not be_nil
+  end
+
+  it 'should track versions'
+
 end
