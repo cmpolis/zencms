@@ -43,21 +43,32 @@ describe Layout do
 
   it 'can have a parent layout' do
     @parent = FactoryGirl.create(:layout, content:"<p>Parent content</p>{{ child }}")
-    @child = FactoryGirl.create(:layout, content:"<h1>Child content</h1>")
-    @child.parent = @parent
-    @child.save
+    @child = FactoryGirl.create(:layout, parent: @parent, content:"<h1>Child content</h1>")
     @parent.child_layouts.should have(1).items
     @child.parent.should be @parent
   end
 
   it 'gets rendered inside a parent' do
     @parent = FactoryGirl.create(:layout, content:"<p>Parent content</p>{{ child }}")
-    @child = FactoryGirl.create(:layout, content:"<h1>Child content</h1>")
-    @child.parent = @parent
-    @child.save
+    @child = FactoryGirl.create(:layout, parent: @parent, content:"<h1>Child content</h1>")
     result = @child.parse
     result.should include 'Parent'
     result.should include 'Child'
+  end
+
+  it 'can include other layouts' do
+    @header = FactoryGirl.create(:layout, name: 'top',
+                                          content: '<h1>Header</h1>')
+    @footer = FactoryGirl.create(:layout, name: 'bottom',
+                                          content: '<h2>Footer</h2>')
+    @main = FactoryGirl.create(:layout, name: 'main',
+                                        content: '{{ top }}
+                                                  <p>Body...</p>>
+                                                  {{ bottom }}')
+    result = @main.parse
+    result.should include 'Header'
+    result.should include 'Body'
+    result.should include 'Footer'
   end
 
 end

@@ -25,6 +25,12 @@ class Layout
     locals = {}
     locals[entity.type.name] = entity unless entity.nil?
     locals['child'] = child unless child.nil?
+
+    # TODO: check which included templates need to be loaded...
+    for other in Layout.ne(_id: self.id)
+      locals[other.name] = Liquid::Template.parse(other.content).render(locals)
+    end
+
     render = Liquid::Template.parse(self.content).render(locals)
 
     if self.parent
