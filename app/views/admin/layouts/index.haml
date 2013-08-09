@@ -10,11 +10,11 @@
     %legend New Layout
     = form_for :layout, url: admin_layouts_path do |f|
       .row
-        .small-4.columns
+        .small-6.columns
           = f.label :name
-          = f.text_field :name
+          = f.text_field :name, placeholder: 'e.g. base or header or beer_info'
       .row
-        .small-4.columns
+        .small-12.columns
           = f.label :content
           = f.text_area :content
       .row

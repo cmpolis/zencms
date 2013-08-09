@@ -1,7 +1,13 @@
-%h1 Welcome
-- if user_signed_in?
-  You are logged in, edit your site by going to the #{link_to 'Admin Panel', '/admin'}.
-  = link_to 'Logout', destroy_user_session_path, method: :delete
-- else
-  %p To start building your site, register as a user and #{link_to 'login', new_user_session_path}.
-  = link_to 'Register', new_user_registration_path
+.row
+  .small-8.small-offset-2
+    %h1 Welcome to ZenCMS
+    %hr
+    - if user_signed_in?
+      %h5.subheader You are logged in, edit your site by going to the #{link_to 'Admin Panel', '/admin'}.
+      = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'tiny button secondary'
+    - else
+      %h5.subheader To start building your site, either register or login.
+      %p
+        = link_to 'Login', new_user_session_path, class: 'small button'
+        = link_to 'Register', new_user_registration_path, class: 'small button success'
+      %h5.subheader If you are seeing this page and you have built a site, you need to configure a page to use the root path('')

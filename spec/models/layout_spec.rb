@@ -28,6 +28,11 @@ describe Layout do
     FactoryGirl.build(:layout, name: nil).should_not be_valid
   end
 
+  it 'should have a lowercase name' do
+    @layout = FactoryGirl.create(:layout, name: 'HEadeR')
+    @layout.name.should eql 'header'
+  end
+
   it 'can generate HTML with an entity' do
     @props = [FactoryGirl.build(:property, name: 'name'),
               FactoryGirl.build(:property, name: 'color')]
@@ -69,6 +74,15 @@ describe Layout do
     result.should include 'Header'
     result.should include 'Body'
     result.should include 'Footer'
+  end
+
+  it 'should know it\'s entity type' do
+    @type = FactoryGirl.create(:type, name: 'Car')
+    @entity = FactoryGirl.create(:entity, type: @type)
+    @layout = FactoryGirl.create(:layout, content: 'this is a {{ type }}')
+
+    result = @layout.parse_with_entity @entity
+    result.should include 'car'
   end
 
 end

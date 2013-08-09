@@ -12,6 +12,8 @@ class Layout
   validates :content, presence: true
   validates :name, presence: true, uniqueness: true
 
+  before_create :downcase_name
+
   def to_s
     self.name
   end
@@ -24,10 +26,12 @@ class Layout
   def parse_with_entity entity, child = nil
     locals = {}
     locals[entity.type.name] = entity unless entity.nil?
+    locals['type'] = (entity.nil? ? 'none' : entity.type.name)
     locals['child'] = child unless child.nil?
 
     # TODO: check which included templates need to be loaded...
     for other in Layout.ne(_id: self.id)
+      next if entity and other.name == entity.type.name
       locals[other.name] = Liquid::Template.parse(other.content).render(locals)
     end
 
@@ -38,6 +42,10 @@ class Layout
     else
       render
     end
+  end
+
+  def downcase_name
+    self.name.downcase!
   end
 
 end

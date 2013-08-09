@@ -39,6 +39,7 @@ class Type
   def normalize_name
     return if self.name.nil?
     self.name = self.name.downcase.singularize
+    self.properties.each { |p| p.normalize_name }
   end
 
 end

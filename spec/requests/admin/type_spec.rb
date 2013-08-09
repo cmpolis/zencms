@@ -28,7 +28,7 @@ describe 'Type' do
         fill_in 'Name', with: 'cats'
         click_on 'Add'
       }.to change(Type, :count).by(1)
-      page.should have_content 'cat'
+      page.should have_content /cat/i
     end
   end
 
@@ -36,7 +36,7 @@ describe 'Type' do
     before { visit admin_type_path(@type) }
 
     it "shows the correct type name and property names" do
-      page.should have_content @type.name
+      page.should have_content %r{#{@type.name}}i
       page.should have_content @type.properties[0].name
     end
 

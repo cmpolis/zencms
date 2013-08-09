@@ -60,4 +60,11 @@ describe Type do
     @type.layout.should_not be_nil
   end
 
+  it 'should have a normalized name' do
+    @type = FactoryGirl.create(:type, name: 'Dogs')
+    @type.name.should eql 'dog'
+    @type = FactoryGirl.create(:type, name: 'bOoK')
+    @type.name.should eql 'book'
+  end
+
 end

@@ -11,6 +11,8 @@ class Property
   validates :name, presence: true
   validates :kind, inclusion: KINDS
 
+  before_create :normalize_name
+
   embedded_in :type
 
   def to_s
@@ -19,5 +21,9 @@ class Property
 
   def required?
     self.req
+  end
+
+  def normalize_name
+    self.name = self.name.gsub(' ', '_').downcase
   end
 end
