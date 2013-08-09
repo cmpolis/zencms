@@ -9,6 +9,7 @@ gem 'mongoid', github: 'mongoid/mongoid' # github: 'cmpolis/mongoid' #, '~> 3.0.
 gem 'haml'
 gem 'liquid'
 gem 'zurb-foundation', '~> 4.0.0'
+gem 'coveralls', require: false
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
