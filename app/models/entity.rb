@@ -10,6 +10,7 @@ class Entity
   validates :type, presence: true
   validates :default_path, uniqueness: true, allow_blank: true
   validate :has_required_values
+  validate :values_are_valid
 
   before_validation :convert_value_keys_to_strings
   before_create :generate_default_path
@@ -27,6 +28,17 @@ class Entity
     end
     if missing.any?
       errors.add(:values, "missing required value for: #{missing}")
+    end
+  end
+
+  def values_are_valid
+    return if self.type.nil?
+
+    for property in self.type.properties
+      val = self.values[property.name]
+      if val and not property.valid_value? val
+        errors.add(:values, "invalid value: #{val} for kind: #{property.kind}")
+      end
     end
   end
 
