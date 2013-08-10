@@ -9,9 +9,13 @@ class PagesController < ApplicationController
       @layout = @entity.type.layout
       render text: @layout.parse_with_entity(@entity)
       
-    else
-
     #check alternate paths
+    elsif false
+
+    elsif params[:path] == ''
+      render :welcome
+
+    else
 
       render text: "Entity not found with path: #{params[:path]}"
     end

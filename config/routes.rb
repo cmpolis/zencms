@@ -8,7 +8,7 @@ Zencms::Application.routes.draw do
     delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  root 'pages#welcome'
+  root 'pages#show', :defaults => { :path => '' }
 
   namespace :admin do
     get '', to: 'dashboard#index', as: :dashboard

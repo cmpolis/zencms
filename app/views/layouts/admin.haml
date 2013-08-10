@@ -21,9 +21,10 @@
           = yield
         .large-3.pull-9.columns
           .section-container
-            - for pair in [['Types', admin_types_path], ['Collections', admin_collections_path], ['Layouts', admin_layouts_path], ['Styles', admin_styles_path], ['Users', admin_users_path], ['Config', admin_config_path]]
+            - for pair in [['Types', admin_types_path], ['Collections', admin_collections_path], ['Layouts', admin_layouts_path], ['Styles', admin_styles_path], ['Images', '#'], ['Static Pages', '#'], ['Users', admin_users_path], ['Config', admin_config_path]]
               %section.section
                 %p.title= link_to pair[0], pair[1]
+          .section-container
             - for type in @types do
               %section.section
                 %p.title= link_to type.plural_name, admin_entity_list_path(type.name)
