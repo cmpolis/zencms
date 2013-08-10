@@ -10,5 +10,11 @@ FactoryGirl.define do
                <p>Color: {{ mytype.color }}</p>
                </body></html>"
     end
+
+    factory :static_layout do
+      content "<!DOCTYPE html><html>
+               <body><h1>This is a static -> static_content</h1>
+               </body></html>"
+    end
   end
 end

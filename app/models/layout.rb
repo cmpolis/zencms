@@ -5,6 +5,7 @@ class Layout
   field :name, type: String
   field :content, type: String, default: ''
 
+  has_many :statics
   has_many :types
   has_many :child_layouts, class_name: 'Layout', inverse_of: :parent
   belongs_to :parent, class_name: 'Layout', inverse_of: :child_layouts

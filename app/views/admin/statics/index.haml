@@ -1,0 +1,27 @@
+%h2 Static Pages
+
+.section-container
+  - for static in @statics
+    %section.section
+      %p.title
+        = link_to static, admin_static_path(static)
+
+.new-static
+  %fieldset
+    %legend New Static Page
+    = form_for :static, url: admin_statics_path do |f|
+      .row
+        .small-6.columns
+          = f.label :name
+          = f.text_field :name, placeholder: 'e.g. contact or about'
+      .row
+        .small-6.columns
+          = f.label :path
+          = f.text_field :path
+      .row
+        .small-6.columns
+          = f.label :layout_id, 'Layout'
+          = f.select :layout_id, Layout.all.collect { |l| [l.name, l.id] }
+      .row
+        .small-4.columns
+          = f.submit 'Add', class: 'small button'

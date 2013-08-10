@@ -19,6 +19,7 @@ Zencms::Application.routes.draw do
     resources :collections
     resources :styles
     resources :layouts
+    resources :statics
     resource :config
 
     # Dynamic resource names...

@@ -1,0 +1,19 @@
+%h2 #{@static.name.titleize}
+= form_for @static, url: admin_static_path(@static) do |f|
+  .row
+    .small-4.columns
+      = f.label :name
+      = f.text_field :name
+  .row
+    .small-4.columns
+      = f.label :path
+      = f.text_field :path
+  .row
+    .small-4.columns
+      = f.label :layout_id, 'Layout'
+      = f.select :layout_id, Layout.all.collect { |l| [l.name, l.id] },
+                          selected: @static.layout ? @static.layout.id : '',
+                          include_blank: true
+  .row
+    .small-4.columns
+      = f.submit 'Update', class: 'small button'

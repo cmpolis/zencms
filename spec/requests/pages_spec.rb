@@ -19,4 +19,14 @@ describe "Pages" do
     end
   end
 
+  describe "Static page" do
+    it "Displays a valid static page" do
+      @layout = FactoryGirl.create(:static_layout)
+      @static = FactoryGirl.create(:static, layout: @layout,
+                                            path: 'staticpath')
+      visit '/staticpath'
+      page.should have_content 'static_content'
+    end
+  end
+
 end
