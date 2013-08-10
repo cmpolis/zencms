@@ -1,0 +1,13 @@
+%h2 #{@style.name.titleize}
+= form_for @style, url: admin_style_path(@style) do |f|
+  .row
+    .small-4.columns
+      = f.label :name
+      = f.text_field :name
+  .row
+    .small-4.columns
+      = f.label :content
+      = f.text_area :content, class: 'layout-content-editor'
+  .row
+    .small-4.columns
+      = f.submit 'Update', class: 'small button'

@@ -1,0 +1,13 @@
+%h2 #{@script.name.titleize}
+= form_for @script, url: admin_script_path(@script) do |f|
+  .row
+    .small-4.columns
+      = f.label :name
+      = f.text_field :name
+  .row
+    .small-4.columns
+      = f.label :content
+      = f.text_area :content
+  .row
+    .small-4.columns
+      = f.submit 'Update', class: 'small button'

@@ -1,4 +1,4 @@
-class Style
+class Script
   include Mongoid::Document
   include Mongoid::Timestamps
 

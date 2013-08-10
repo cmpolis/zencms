@@ -18,6 +18,7 @@ Zencms::Application.routes.draw do
     end
     resources :collections
     resources :styles
+    resources :scripts
     resources :layouts
     resources :statics
     resource :config

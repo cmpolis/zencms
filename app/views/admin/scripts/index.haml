@@ -1,0 +1,22 @@
+%h2 Scripts
+
+.section-container
+  - for script in @scripts
+    %section.section
+      %p.title
+        = link_to script, admin_scripts_path(script)
+.new-layout
+  %fieldset
+    %legend New Script
+    = form_for :script, url: admin_scripts_path do |f|
+      .row
+        .small-6.columns
+          = f.label :name
+          = f.text_field :name, placeholder: 'e.g. validation or top_dropdown'
+      .row
+        .small-12.columns
+          = f.label :content
+          = f.text_area :content, placeholder: 'JavaScript goes here...'
+      .row
+        .small-4.columns
+          = f.submit 'Add', class: 'small button'

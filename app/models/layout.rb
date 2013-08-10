@@ -9,6 +9,8 @@ class Layout
   has_many :types
   has_many :child_layouts, class_name: 'Layout', inverse_of: :parent
   belongs_to :parent, class_name: 'Layout', inverse_of: :child_layouts
+  has_and_belongs_to_many :scripts
+  has_and_belongs_to_many :styles
 
   validates :content, presence: true
   validates :name, presence: true, uniqueness: true
