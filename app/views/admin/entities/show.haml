@@ -1,1 +1,20 @@
-%h3 of type #{@type.name}
+%h1 Entity // #{@type.name}
+%h5.subheader= link_to 'Preview', "/#{@entity.default_path}", target: '_blank'
+
+.container
+  .inner
+    = form_for @entity, url: admin_update_entity_path(@type.name, @entity.id) do |f|
+      - for prop in @type.properties
+        .row
+          .small-4.columns
+            = label_tag "entity[values[#{prop.name}]]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}"
+            - if prop.text?
+              = text_area_tag "entity[values[#{prop.name}]]", @entity.values[prop.name]
+            - elsif prop.enum?
+              = select(:entity, "values[#{prop.name}]", prop.possible.collect {     |val| [val, val]})
+            - else
+              = text_field_tag "entity[values[#{prop.name}]]", @entity.values[prop.name]
+      = f.label :default_path, 'Default Path'
+      = f.text_field :default_path
+
+      = f.submit 'Update', class: 'small button'  

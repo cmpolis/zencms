@@ -25,6 +25,7 @@ Zencms::Application.routes.draw do
     get 'entity/:type_name', to: 'entities#index', as: 'entity_list'
     get 'entity/:type_name/new', to: 'entities#new', as: 'new_list'
     get 'entity/:type_name/:id', to: 'entities#show', as: 'entity'
+    patch 'entity/:type_name/:id', to: 'entities#update', as: 'update_entity'
     post 'entity/:type_id', to: 'entities#create', as: 'create_entity'
     delete 'entity/:type_id/:id', to: 'entities#destroy', as: 'destroy_entity'
   end

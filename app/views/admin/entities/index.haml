@@ -8,7 +8,7 @@
     %td Visit
     %td Edit
     %td Remove
-  - for entity in @type.entities
+  - for entity in @entities
     %tr
       - for prop in @type.properties
         %td #{entity.values[prop.to_s]}
@@ -17,7 +17,7 @@
         %td= link_to 'Visit', cms_page_path(entity.default_path)
       - else
         %td -
-      %td= link_to 'Edit', admin_entity_path(@type, entity)
+      %td= link_to 'Edit', admin_entity_path(@type.name, entity)
       %td= link_to 'Remove', admin_destroy_entity_path(@type, entity), method: :delete
 
 .new-entity
@@ -28,7 +28,13 @@
         .row
           .small-4.columns
             = f.label "values[#{prop.name}]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}"
-            = f.text_field "values[#{prop.name}]"
+            - if prop.text?
+              = f.text_area "values[#{prop.name}]"
+            - elsif prop.enum?
+              = select(:entity, "values[#{prop.name}]", prop.possible.collect { |val| [val, val]})
+              
+            - else
+              = f.text_field "values[#{prop.name}]"
       .row
         .small-4.columns
           = f.submit 'Create', class: 'small button'

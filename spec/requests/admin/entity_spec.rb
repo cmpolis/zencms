@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Entity' do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @props = [FactoryGirl.build(:property, req: true),
+    @props = [FactoryGirl.build(:property, req: true, name: 'first'),
               FactoryGirl.build(:property)]
     @type = FactoryGirl.create(:type, properties: @props)
 
@@ -29,6 +29,35 @@ describe 'Entity' do
 
       page.should have_content 'val1'
       page.should have_content 'val2'
+    end
+
+    context "Testing property types" do
+      before(:each) do
+        @props = [FactoryGirl.build(:property, name: 'enum',
+                                               kind: :enum,
+                                               possible: %w(a b c)),
+                  FactoryGirl.build(:property, name: 'string',
+                                               kind: :string),
+                  FactoryGirl.build(:property, name: 'array',
+                                               kind: :array),
+                  FactoryGirl.build(:property, name: 'text',
+                                               kind: :text)]
+        @type = FactoryGirl.create(:type, properties: @props)
+        visit "/admin/entity/#{@type}"
+      end
+
+      it "Shows a text input for string kind" do
+        page.should have_field 'String'
+      end
+
+      it "Shows a text area for text kind" do
+        page.should have_field 'Text', type: 'textarea'
+      end
+
+      it "Shows a select with correct enum values" do
+        page.should have_select 'Enum', options: %w(a b c)
+      end
+
     end
 
   end
@@ -65,6 +94,34 @@ describe 'Entity' do
       expect {
         first(:link, 'Remove').click
       }.to change(Entity, :count).by(-1)
+    end
+  end
+
+  describe "Edit specific entity" do
+    before(:each) do
+      @entity = Entity.create(type: @type,
+                              values: { @props[0].name => 'val1',
+                                        @props[1].name => 'val2',
+                              default_path: 'pathtoenlightenment' })
+      visit "/admin/entity/#{@type}/#{@entity.id}"
+    end
+
+    it "Shows entity values" do
+      find_field('First').value.should eq 'val1'
+    end
+    
+    it "Allows changing entity values" do
+      fill_in 'First', with: 'newfirst'
+      click_on 'Update'
+
+      @entity.reload.values['first'].should eq 'newfirst'
+    end
+
+    it "Allows changing the entity path" do
+      fill_in 'Default Path', with: 'newpath'
+      click_on 'Update'
+
+      @entity.reload.default_path.should eq 'newpath'
     end
   end
 

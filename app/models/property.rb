@@ -26,10 +26,6 @@ class Property
     self.req
   end
 
-  def enum?
-    self.kind == :enum
-  end
-
   def possible_is_an_array
     errors.add(:possible, 'must be array') unless self.possible.is_a? Array
   end
@@ -42,22 +38,28 @@ class Property
     val_method = "valid_#{self.kind}?"
     return self.send(val_method, value) if self.respond_to? val_method
     true
- end
+  end
 
- def valid_integer? value
-   value.is_a? Integer
- end
+  def valid_integer? value
+    value.is_a? Integer
+  end
 
- def valid_float? value
-   value.is_a? Float
- end
+  def valid_float? value
+    value.is_a? Float
+  end
 
- def valid_array? value
-   value.is_a? Array
- end
+  def valid_array? value
+    value.is_a? Array
+  end
 
- def valid_enum? value
-   self.possible and self.possible.include? value
- end
+  def valid_enum? value
+    self.possible and self.possible.include? value
+  end
+
+  KINDS.each do |kind_sym|
+    define_method "#{kind_sym}?" do
+      self.kind == kind_sym
+    end
+  end
 
 end

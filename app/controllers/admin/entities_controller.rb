@@ -2,10 +2,12 @@ class Admin::EntitiesController < AdminController
   
   def index
     @type = Type.where(name: params[:type_name]).first
+    @entities = @type.entities
   end
 
   def show
     @type = Type.where(name: params[:type_name]).first
+    @entity = Entity.find(params[:id])
   end
 
   def destroy
@@ -29,5 +31,16 @@ class Admin::EntitiesController < AdminController
 
     end
     redirect_to admin_entity_list_path(@type.name)
+  end
+
+  def update
+    @type = Type.where(name: params[:type_name]).first
+    @entity = Entity.find(params[:id])
+    @entity.update_attributes(
+        params[:entity].permit(:values => params[:entity][:values].keys))
+     @entity.update_attributes(
+        params[:entity].permit(:default_path))
+    # TODO: rewrite two statements above this into one...
+    redirect_to admin_entity_path(@type.name, @entity.id)
   end
 end
