@@ -8,6 +8,30 @@
       = f.select :parent_id, Layout.all.collect { |l| [l.name, l.id] },
                           selected: @layout.parent ? @layout.parent.id : '',
                           include_blank: true
+
+  %p
   .row
     .small-4.columns
       = f.submit 'Update', class: 'small button'
+.row
+  .small-6.columns
+    %fieldset
+      %legend Scripts
+      - for script in @layout.scripts
+        %h4.subheader #{script}
+        = link_to 'Unlink Script', admin_layout_script_path(@layout, script), method: :delete, class: 'tiny secondary button'
+      %hr
+      = form_for :script, url: admin_layout_scripts_path(@layout) do |f|
+        = select_tag 'script_id', options_from_collection_for_select(Script.all, 'id', 'name')
+        = f.submit 'Link Script', class: 'tiny button secondary'
+.row
+  .small-6.columns
+    %fieldset
+      %legend Styles
+      - for style in @layout.styles
+        %h4.subheader #{style}
+        = link_to 'Unlink Style', admin_layout_style_path(@layout, style), method: :delete, class: 'tiny secondary button'
+      %hr
+      = form_for :style, url: admin_layout_styles_path(@layout) do |f|
+        = select_tag 'style_id', options_from_collection_for_select(Style.all, 'id', 'name')
+        = f.submit 'Link Style', class: 'tiny button secondary'

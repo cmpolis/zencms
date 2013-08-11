@@ -43,12 +43,25 @@ class Layout
     if self.parent
       self.parent.parse_with_entity(entity, render)
     else
-      render
+      add_assets(render)
     end
   end
 
   def downcase_name
     self.name.downcase!
+  end
+
+  def add_assets dom
+    assetIncludes = ""
+    for script in self.scripts do
+      assetIncludes << "<script src='/js/#{script}.js'></script>\n"
+    end
+    
+    for style in self.styles do
+      assetIncludes << "<link rel='stylesheet' type='text/css' href='/css/#{style}.css'>\n"
+    end
+
+    dom.sub /<\/head>/i, "#{assetIncludes}</head>"
   end
 
 end

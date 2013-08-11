@@ -24,6 +24,8 @@ RSpec.configure do |config|
   config.include Capybara::DSL, type: :request 
   config.include Warden::Test::Helpers, type: :request
 
+  Capybara.javascript_driver = :webkit
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)

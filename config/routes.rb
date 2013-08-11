@@ -19,7 +19,10 @@ Zencms::Application.routes.draw do
     resources :collections
     resources :styles
     resources :scripts
-    resources :layouts
+    resources :layouts do
+      resources :scripts
+      resources :styles
+    end
     resources :statics
     resource :config
 
@@ -32,6 +35,8 @@ Zencms::Application.routes.draw do
     delete 'entity/:type_id/:id', to: 'entities#destroy', as: 'destroy_entity'
   end
 
+  get 'js/:script_name', to: 'scripts#show', as: 'cms_script'
+  get 'css/:style_name', to: 'styles#show', as: 'cms_style'
   get ':path', to: 'pages#show', as: 'cms_page'
 
 end

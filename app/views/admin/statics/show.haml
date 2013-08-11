@@ -1,4 +1,5 @@
 %h2 #{@static.name.titleize}
+%h4.subheader= link_to 'Preview', cms_page_path(@static.path)
 = form_for @static, url: admin_static_path(@static) do |f|
   .row
     .small-4.columns
@@ -14,6 +15,7 @@
       = f.select :layout_id, Layout.all.collect { |l| [l.name, l.id] },
                           selected: @static.layout ? @static.layout.id : '',
                           include_blank: true
+  %p
   .row
     .small-4.columns
       = f.submit 'Update', class: 'small button'

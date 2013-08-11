@@ -19,7 +19,8 @@ class Admin::LayoutsController < AdminController
 
   def update
     @layout = Layout.find(params[:id])
-    if @layout.update_attributes(params[:layout].permit(:content, :parent_id))
+    @layout.scripts << Script.find(params[:new_script]) unless params[:new_script].blank?
+    if @layout.update_attributes(params[:layout].permit(:content, :parent_id, :script_ids))
  
     else
 
