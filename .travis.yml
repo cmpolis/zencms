@@ -1,1 +1,2 @@
 services: mongodb
+script: xvfb-run rspec
