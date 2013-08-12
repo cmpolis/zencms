@@ -22,8 +22,8 @@ Zencms::Application.routes.draw do
     resources :styles
     resources :scripts
     resources :layouts do
-      resources :scripts
-      resources :styles
+      resources :scripts, controller: 'layouts/scripts'
+      resources :styles, controller: 'layouts/styles'
     end
     resources :statics
     resource :config

@@ -43,8 +43,8 @@
   = form_for @type, url: admin_type_path(@type) do |f|
     .row
       .small-4.columns
-        = f.label :layout
-        = f.select :layout, Layout.all.collect { |l| [l.name, l.id] }, 
+        = f.label :layout_id
+        = f.select :layout_id, Layout.all.collect { |l| [l.name, l.id] }, 
                       selected: @type.layout ? @type.layout.id : '', 
                       include_blank: true
     .row

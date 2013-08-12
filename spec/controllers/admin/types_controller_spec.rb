@@ -28,4 +28,16 @@ describe Admin::TypesController do
     end
   end
 
+  describe "PUT #update" do
+    it "should update type attributes" do
+      @layout = FactoryGirl.create(:layout)
+      put :update, id: @type, type: {
+                   primary_property: @properties.last.name,
+                   layout_id: @layout.id }
+
+      @type.reload.primary_property.should eql @properties.last.name
+      @type.layout.should eq(@layout)
+    end
+  end
+
 end

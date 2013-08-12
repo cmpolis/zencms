@@ -35,13 +35,4 @@ describe Admin::StylesController do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "can unlink styles from layouts" do
-      @layout = FactoryGirl.create(:layout, styles: Style.all.to_a)
-      delete :destroy, layout_id: @layout.id, id: @style
-
-      @layout.reload.styles.should have(Style.count - 1).items
-    end
-  end
-
 end

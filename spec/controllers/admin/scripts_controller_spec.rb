@@ -35,13 +35,4 @@ describe Admin::ScriptsController do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "can unlink scripts from layouts" do
-      @layout = FactoryGirl.create(:layout, scripts: Script.all.to_a)
-      delete :destroy, layout_id: @layout.id, id: @script
-      
-      @layout.reload.scripts.should have(Script.count - 1).items
-    end
-  end
-
 end

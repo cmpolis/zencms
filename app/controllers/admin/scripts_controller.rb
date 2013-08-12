@@ -9,23 +9,11 @@ class Admin::ScriptsController < AdminController
   end
 
   def create
-    if params[:layout_id].blank?
-      @script = Script.new(params[:script].permit(:name, :content))
-      if @script.save
-        redirect_to admin_script_path(@script)
-      else
-        render text: "#{@script.errors}"
-      end
-
+    @script = Script.new(params[:script].permit(:name, :content))
+    if @script.save
+      redirect_to admin_script_path(@script)
     else
-      @layout = Layout.find(params[:layout_id])
-      @layout.scripts << Script.find(params[:script_id])
-      if @layout.save
-        redirect_to admin_layout_path(@layout)
-      else
-        render text: "#{@layout.errors}"
-      end
-
+      render text: "#{@script.errors}"
     end
   end
 
@@ -40,10 +28,9 @@ class Admin::ScriptsController < AdminController
   end
 
   def destroy
-    @layout = Layout.find(params[:layout_id])
     @script = Script.find(params[:id])
-    @layout.scripts.delete(@script)
-    redirect_to admin_layout_path(@layout)
+    @script.destroy unless @script.nil?
+    redirect_to admin_scripts_path
   end
 
 end
