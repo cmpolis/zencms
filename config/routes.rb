@@ -16,7 +16,9 @@ Zencms::Application.routes.draw do
     resources :types do
       resources :properties
     end
-    resources :collections
+    resources :collections do
+      resources :entities
+    end
     resources :styles
     resources :scripts
     resources :layouts do

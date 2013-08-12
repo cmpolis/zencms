@@ -6,6 +6,7 @@ class Entity
   field :default_path, type: String
 
   belongs_to :type
+  has_and_belongs_to_many :collections
 
   validates :type, presence: true
   validates :default_path, uniqueness: true, allow_blank: true

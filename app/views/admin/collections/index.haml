@@ -1,1 +1,18 @@
 %h2 Collections
+
+.section-container
+  - for collection in @collections
+    %section.section
+      %p.title
+        = link_to collection.name.titleize, admin_collection_path(collection)
+.new-property
+  %fieldset
+    %legend New Collection
+    = form_for :collection, url: admin_collections_path do |f|
+      .row
+        .small-4.columns
+          = f.label :name
+          = f.text_field :name, :placeholder => 'e.g. animal or beer or car'
+      .row
+        .small-4.columns
+          = f.submit 'Add', class: 'small button'
