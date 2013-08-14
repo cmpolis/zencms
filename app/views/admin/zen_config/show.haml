@@ -1,0 +1,5 @@
+%h2 Config
+= form_for @config, url: admin_config_path do |f|
+  = f.label :ga_tracking_id
+  = f.text_field :ga_tracking_id
+  = f.submit 'Update Config'

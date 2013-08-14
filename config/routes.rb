@@ -26,7 +26,7 @@ Zencms::Application.routes.draw do
       resources :styles, controller: 'layouts/styles'
     end
     resources :statics
-    resource :config
+    resource :config, controller: 'zen_config'
 
     # Dynamic resource names...
     get 'entity/:type_name', to: 'entities#index', as: 'entity_list'
