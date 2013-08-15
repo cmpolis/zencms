@@ -85,4 +85,36 @@ describe Layout do
     result.should include 'car'
   end
 
+  context 'With config object' do
+    before(:each) do
+      @config = ZenConfig.instance
+      @config.update_attributes(ga_enabled: true,
+                                ga_tracking_id: 'TESTGAID',
+                                base_url: 'http://localhost:3000',
+                                admin_email: 'test@test.com',
+                                twitter_handle: 'chrispolis')
+
+    end
+
+    it 'renders ga code' do
+      @layout = FactoryGirl.create(:layout, content: '{{ ga_code }}')
+      @layout.parse.should include 'TESTGAID'
+    end
+
+    it 'renders twitter handle url' do
+      @layout = FactoryGirl.create(:layout, content: '{{ twitter_url }}')
+      @layout.parse.should include 'twitter.com/chrispolis'
+    end
+
+    it 'renders base url' do
+      @layout = FactoryGirl.create(:layout, content: '{{ base_url }}')
+      @layout.parse.should include 'localhost:3000'
+    end
+
+    it 'renders admin email' do
+      @layout = FactoryGirl.create(:layout, content: '{{ admin_email }}')
+      @layout.parse.should include 'test@test.com'
+    end
+  end
+
 end

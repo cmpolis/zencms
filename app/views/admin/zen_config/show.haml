@@ -1,5 +1,35 @@
 %h2 Config
 = form_for @config, url: admin_config_path do |f|
-  = f.label :ga_tracking_id
-  = f.text_field :ga_tracking_id
-  = f.submit 'Update Config'
+  %fieldset
+    %legend Site Info
+    .row
+      .small-6.columns
+        = f.label :base_url
+        = f.text_field :base_url
+    .row
+      .small-6.columns
+        = f.label :admin_email
+        = f.text_field :admin_email
+    .row
+      .small-6.columns
+        = f.label :twitter_handle
+    .row.collapse
+      .small-6.columns
+        .small-2.columns
+          %span.prefix @
+        .small-10.columns
+          = f.text_field :twitter_handle
+  %fieldset
+    %legend Analytics
+    .row
+      .small-6.columns
+        = f.label :ga_enabled
+        = f.check_box :ga_enabled
+    .row
+      .small-6.columns
+        = f.label :ga_tracking_id
+        = f.text_field :ga_tracking_id
+  %fieldset
+    .row
+      .small-6.columns
+        = f.submit 'Update Config', class: 'small button'

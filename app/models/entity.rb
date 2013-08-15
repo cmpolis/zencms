@@ -66,4 +66,11 @@ class Entity
     self.values
   end
 
+  def liquid_attrs
+    {
+      "#{self.type.name}" => self,
+      "type" => self.type.name
+    }
+  end
+
 end

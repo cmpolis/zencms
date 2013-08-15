@@ -27,9 +27,8 @@ class Layout
 
   # Returns HTML string with entity values
   def parse_with_entity entity, child = nil
-    locals = {}
-    locals[entity.type.name] = entity unless entity.nil?
-    locals['type'] = (entity.nil? ? 'none' : entity.type.name)
+    locals = ZenConfig.liquid_attrs
+    locals.merge! entity.liquid_attrs unless entity.nil?
     locals['child'] = child unless child.nil?
 
     # TODO: check which included templates need to be loaded...
@@ -39,7 +38,6 @@ class Layout
     end
 
     render = Liquid::Template.parse(self.content).render(locals)
-
     if self.parent
       self.parent.parse_with_entity(entity, render)
     else
