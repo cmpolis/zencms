@@ -59,4 +59,8 @@ class Layout
     dom.sub /<\/head>/i, "#{insert}</head>"
   end
 
+  def self.prepend_to_body dom, insert
+    dom.sub /<body>/i, "<body>#{insert}"
+  end
+
 end

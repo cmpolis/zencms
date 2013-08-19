@@ -22,6 +22,10 @@ group :development, :test do
   gem 'launchy'
 end
 
+group :development do
+  gem 'meta_request'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

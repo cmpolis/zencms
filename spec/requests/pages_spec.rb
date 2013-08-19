@@ -52,6 +52,16 @@ describe "Pages" do
       visit '/bob'
       page.should have_xpath("//link[contains(@href, '.css')]")
     end
+
+    context 'Logged in as admin' do
+      it 'Should show admin topbar' do
+        @user = FactoryGirl.create(:user, admin_level: 1)
+        login_as(@user, scope: :user)
+        
+        visit '/bob'
+        page.should have_xpath("//div[@class='admin-topbar']")
+      end
+    end
   end
 
   describe "Static page" do
