@@ -9,7 +9,7 @@ class Admin::ScriptsController < AdminController
   end
 
   def create
-    @script = Script.new(params[:script].permit(:name, :content))
+    @script = Script.new(params[:script].permit(:name, :content, :reference_url))
     if @script.save
       redirect_to admin_script_path(@script)
     else
@@ -19,7 +19,7 @@ class Admin::ScriptsController < AdminController
 
   def update
     @script = Script.find(params[:id])
-    if @script.update_attributes(params[:script].permit(:name, :content))
+    if @script.update_attributes(params[:script].permit(:name, :content, :reference_url))
  
     else
 

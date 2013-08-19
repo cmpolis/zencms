@@ -33,6 +33,12 @@ describe Admin::ScriptsController do
       @script.reload.name.should eql 'new_name'
       @script.content.should eql 'alert("b");'
     end
+    it "can use reference url" do
+      put :update, id: @script, script: { name: 'new_name',
+                                          content: nil,
+                                          reference_url: 'http://google.com/test.css' }
+      @script.reference_url.should include 'test.css'
+    end
   end
 
 end

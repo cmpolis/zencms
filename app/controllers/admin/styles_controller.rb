@@ -9,7 +9,7 @@ class Admin::StylesController < AdminController
   end
 
   def create
-    @style = Style.new(params[:style].permit(:name, :content))
+    @style = Style.new(params[:style].permit(:name, :content, :reference_url))
     if @style.save
       redirect_to admin_style_path(@style)
     else
@@ -19,7 +19,7 @@ class Admin::StylesController < AdminController
 
   def update
     @style = Style.find(params[:id])
-    if @style.update_attributes(params[:style].permit(:name, :content))
+    if @style.update_attributes(params[:style].permit(:name, :content, :reference_url))
  
     else
 

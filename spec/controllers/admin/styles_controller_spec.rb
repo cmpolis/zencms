@@ -33,6 +33,12 @@ describe Admin::StylesController do
       @style.reload.name.should eql 'new_name'
       @style.content.should include 'color: blue;'
     end
+    it "can use reference url" do
+      put :update, id: @style, style: { name: 'new_name',
+                                        content: nil, 
+                                        reference_url: 'http://google.com/test.js' }
+      @style.reference_url.should include 'test.js'
+    end
   end
 
 end

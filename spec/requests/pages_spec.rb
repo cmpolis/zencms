@@ -37,6 +37,21 @@ describe "Pages" do
       page.driver.alert_messages.should include 'foo'
     end
 
+    it "Includes referenced javascripts", js: true do
+      @layout.scripts = [ FactoryGirl.create(:jquery) ]
+      @layout.save
+
+      visit '/bob'
+      page.should have_xpath("//script[contains(@src, 'jquery')]")
+    end
+
+    it "Includes referenced stylesheets" do
+      @layout.styles = [ FactoryGirl.create(:referenced_css) ]
+      @layout.save
+
+      visit '/bob'
+      page.should have_xpath("//link[contains(@href, '.css')]")
+    end
   end
 
   describe "Static page" do

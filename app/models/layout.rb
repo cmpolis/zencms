@@ -50,16 +50,13 @@ class Layout
   end
 
   def add_assets dom
-    assetIncludes = ""
-    for script in self.scripts do
-      assetIncludes << "<script src='/js/#{script}.js'></script>\n"
-    end
-    
-    for style in self.styles do
-      assetIncludes << "<link rel='stylesheet' type='text/css' href='/css/#{style}.css'>\n"
-    end
+    assetIncludes = self.scripts.collect(&:to_html).join
+    assetIncludes += self.styles.collect(&:to_html).join
+    Layout.append_to_head(dom, assetIncludes)
+  end
 
-    dom.sub /<\/head>/i, "#{assetIncludes}</head>"
+  def self.append_to_head dom, insert
+    dom.sub /<\/head>/i, "#{insert}</head>"
   end
 
 end

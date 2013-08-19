@@ -20,4 +20,8 @@ describe Script do
     @script.layouts.should include @layout
   end
 
+  it 'can reference external scripts' do
+    @layout = FactoryGirl.create(:jquery).should be_valid
+  end
+
 end

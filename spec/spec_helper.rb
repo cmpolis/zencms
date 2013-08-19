@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :request
 
   Capybara.javascript_driver = :webkit
+  Capybara.ignore_hidden_elements = false
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation

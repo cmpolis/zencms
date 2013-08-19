@@ -14,6 +14,10 @@
           = f.label :name
           = f.text_field :name, placeholder: 'e.g. header_style or base'
       .row
+        .small-6.columns
+          = f.label :reference_url
+          = f.text_field :reference_url, placeholder: 'OR use external URL'
+      .row
         .small-12.columns
           = f.label :content
           = f.text_area :content, placeholder: 'HTML goes here...'

@@ -18,5 +18,9 @@
           = f.label :content
           = f.text_area :content, placeholder: 'JavaScript goes here...'
       .row
+        .small-12.columns
+          = f.label :reference_url
+          = f.text_field :reference_url, placeholder: 'OR add scripts with external URL'
+      .row
         .small-4.columns
           = f.submit 'Add', class: 'small button'

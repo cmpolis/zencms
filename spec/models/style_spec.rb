@@ -20,4 +20,8 @@ describe Style do
     @style.layouts.should include @layout
   end
 
+  it 'can reference external stylesheets' do
+    FactoryGirl.create(:referenced_css).should be_valid
+  end
+
 end
