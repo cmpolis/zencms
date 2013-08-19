@@ -37,7 +37,7 @@ describe Admin::ScriptsController do
       put :update, id: @script, script: { name: 'new_name',
                                           content: nil,
                                           reference_url: 'http://google.com/test.css' }
-      @script.reference_url.should include 'test.css'
+      @script.reload.reference_url.should include 'test.css'
     end
   end
 

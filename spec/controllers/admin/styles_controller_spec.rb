@@ -37,7 +37,7 @@ describe Admin::StylesController do
       put :update, id: @style, style: { name: 'new_name',
                                         content: nil, 
                                         reference_url: 'http://google.com/test.js' }
-      @style.reference_url.should include 'test.js'
+      @style.reload.reference_url.should include 'test.js'
     end
   end
 

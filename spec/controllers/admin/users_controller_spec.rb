@@ -44,5 +44,13 @@ describe Admin::UsersController do
     end
   end
 
+  describe "PUT #update" do
+    it "can update user admin level" do
+      @testUser = FactoryGirl.create(:user, email: 'another2@test.com')
+      put :update, id: @testUser, user: { admin_level: 5 }
+
+      @testUser.reload.admin_level.should eql(5)
+    end
+  end
 
 end

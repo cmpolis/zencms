@@ -2,6 +2,11 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  ADMIN_LEVELS = { -1 => 'guest',
+                    0 => 'user',
+                    1 => 'admin',
+                    2 => 'editor' }
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -48,11 +53,20 @@ class User
 
   before_create :set_first_user_admin
 
+  def to_s
+    self.username
+  end
+
   def is_admin?
-    return self.admin_level > 0
+    self.admin_level > 0
   end
 
   def set_first_user_admin
     self.admin_level = 1 if User.count == 0
   end
+
+  def admin_string
+    User::ADMIN_LEVELS[self.admin_level] || "nil"
+  end
+
 end

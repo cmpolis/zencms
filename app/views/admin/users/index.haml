@@ -1,1 +1,23 @@
 %h2 Users
+%table
+  %thead
+    %tr
+      %td Name
+      %td Admin Level
+      %td Update
+      %td Delete
+  %tbody
+    - for user in @users
+      %tr
+        = form_for user, url: admin_user_path(user) do |f|
+          %td #{user}
+          /%td #{user.admin_string}
+          %td
+            = collection_select 'user', 'admin_level', User::ADMIN_LEVELS, :first, :last, selected: user.admin_level
+          %td
+            = f.submit 'Update', class: 'button tiny secondary'
+          %td 
+            - if User.first == user
+              = "-"
+            - else 
+              = link_to 'Delete', admin_user_path(user), method: :delete
