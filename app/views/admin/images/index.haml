@@ -1,0 +1,28 @@
+%h2 
+  %i.general.foundicon-photo
+  Images
+
+.section-container
+  - for image in @images
+    %section.section
+      %p.title
+        /= link_to style, admin_style_path(style)
+.new-layout
+  %fieldset
+    %legend New Image
+    /= form_for :image, url: admin_styles_path do |f|
+    /  .row
+    /    .small-6.columns
+    /      = f.label :name
+    /      = f.text_field :name, placeholder: 'e.g. header_style or base'
+    /  .row
+    /    .small-6.columns
+    /      = f.label :reference_url
+    /      = f.text_field :reference_url, placeholder: 'OR use external URL'
+    /  .row
+    /    .small-12.columns
+    /      = f.label :content
+    /      = f.text_area :content, placeholder: 'HTML goes here...'
+    /  .row
+    /    .small-4.columns
+    /      = f.submit 'Add', class: 'small button'

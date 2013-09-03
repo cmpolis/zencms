@@ -24,7 +24,7 @@
           = yield
         .large-3.pull-9.columns.left-nav
           .section-container.options
-            - for pair in [['Types', admin_types_path, 'general foundicon-compass'], ['Collections', admin_collections_path, 'general foundicon-folder'], ['Layouts', admin_layouts_path, 'general foundicon-website'], ['Styles', admin_styles_path, 'accessibility foundicon-fontsize'], ['Javascripts', admin_scripts_path, 'general foundicon-tools'], ['Images', '#', 'general foundicon-photo'], ['Static Pages', admin_statics_path, 'general foundicon-page'], ['Users', admin_users_path, 'general foundicon-address-book'], ['Config', admin_config_path, 'general foundicon-settings']]
+            - for pair in [['Types', admin_types_path, 'general foundicon-compass'], ['Collections', admin_collections_path, 'general foundicon-folder'], ['Layouts', admin_layouts_path, 'general foundicon-website'], ['Styles', admin_styles_path, 'accessibility foundicon-fontsize'], ['Javascripts', admin_scripts_path, 'general foundicon-tools'], ['Images', admin_images_path, 'general foundicon-photo'], ['Static Pages', admin_statics_path, 'general foundicon-page'], ['Users', admin_users_path, 'general foundicon-address-book'], ['Config', admin_config_path, 'general foundicon-settings']]
               %section.section
                 %p.title
                   = link_to pair[1], class: "#{request.env['PATH_INFO'].include?(pair[1]) ? 'active' : ''}" do
