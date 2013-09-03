@@ -42,4 +42,8 @@ class Type
     self.properties.each { |p| p.normalize_name }
   end
 
+  def primary_prop
+    return self.properties.where(name: self.primary_property).first
+  end
+
 end

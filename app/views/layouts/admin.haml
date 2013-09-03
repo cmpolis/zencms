@@ -11,9 +11,11 @@
     %nav.top-bar
       %ul.title-area
         %li.name
-          %h1= link_to 'ZenCMS Admin', admin_dashboard_path
+          %h1= link_to ZenConfig.instance.admin_title, admin_dashboard_path
       .top-bar-section
         %ul.right
+          %li
+            = link_to 'Visit Site', '/'
           %li
             = link_to 'Logout', destroy_user_session_path, method: :delete
     .content
@@ -22,13 +24,19 @@
           = yield
         .large-3.pull-9.columns.left-nav
           .section-container.options
-            - for pair in [['Types', admin_types_path], ['Collections', admin_collections_path], ['Layouts', admin_layouts_path], ['Styles', admin_styles_path], ['Javascripts', admin_scripts_path], ['Images', '#'], ['Static Pages', admin_statics_path], ['Users', admin_users_path], ['Config', admin_config_path]]
+            - for pair in [['Types', admin_types_path, 'general foundicon-compass'], ['Collections', admin_collections_path, 'general foundicon-folder'], ['Layouts', admin_layouts_path, 'general foundicon-website'], ['Styles', admin_styles_path, 'accessibility foundicon-fontsize'], ['Javascripts', admin_scripts_path, 'general foundicon-tools'], ['Images', '#', 'general foundicon-photo'], ['Static Pages', admin_statics_path, 'general foundicon-page'], ['Users', admin_users_path, 'general foundicon-address-book'], ['Config', admin_config_path, 'general foundicon-settings']]
               %section.section
-                %p.title= link_to pair[0], pair[1]
+                %p.title
+                  = link_to pair[1], class: "#{request.env['PATH_INFO'].include?(pair[1]) ? 'active' : ''}" do
+                    %i{ :class => pair[2] }
+                    = pair[0]
           .section-container.types
             - for type in @types do
               %section.section
-                %p.title= link_to type.plural_name, admin_entity_list_path(type.name)
+                %p.title
+                  = link_to admin_entity_list_path(type.name) do
+                    /%i.general.foundicon-laptop
+                    = type.plural_name
     .footer
       .row
         %p &copy; ZenCMS 2013

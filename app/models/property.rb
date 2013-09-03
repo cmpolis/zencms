@@ -26,6 +26,10 @@ class Property
     self.req
   end
 
+  def primary?
+    self.type.primary_property == self.name
+  end
+
   def possible_is_an_array
     errors.add(:possible, 'must be array') unless self.possible.is_a? Array
   end

@@ -11,6 +11,7 @@ class ZenConfig
   field :jquery_version, type: String
   field :jquery_enabled, type: Mongoid::Boolean
 
+  field :name, type: String
   field :base_url, type: String
   field :admin_email, type: String
   field :twitter_handle, type: String
@@ -26,6 +27,10 @@ class ZenConfig
     if ZenConfig.count > 0
       errors.add(:base, 'Can only create one ZenConfig object')
     end
+  end
+
+  def admin_title
+    "#{self.name || "ZenCMS"} Admin"
   end
 
   def ga_code

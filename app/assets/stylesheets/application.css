@@ -11,5 +11,7 @@
  *= require_self
  *= require foundation_and_overrides
  *= require app
+ *= require accessibility_foundicons
+ *= require general_foundicons
  *= require hacks
  */

@@ -1,7 +1,14 @@
-%h2 Config
+%h2 
+  %i.general.foundicon-settings
+  Config
+
 = form_for @config, url: admin_config_path do |f|
   %fieldset
     %legend Site Info
+    .row
+      .small-6.columns
+        = f.label :name
+        = f.text_field :name
     .row
       .small-6.columns
         = f.label :base_url

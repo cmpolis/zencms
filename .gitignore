@@ -19,5 +19,7 @@
 *.swp
 *.swo
 
+*.DS_STORE
+
 # Coverage test results
 /coverage

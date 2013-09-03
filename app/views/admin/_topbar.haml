@@ -1,2 +1,6 @@
 .admin-topbar
-  %h1 Admin
+  %h1= link_to ZenConfig.instance.admin_title, admin_dashboard_path
+  %ul.right
+    %li
+      = link_to 'Logout', destroy_user_session_path, method: :delete
+

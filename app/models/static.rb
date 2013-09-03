@@ -3,13 +3,13 @@ class Static
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :path, type: String
+  field :path, type: String, default: ''
 
   belongs_to :layout
 
   validates :layout, presence: true
   validates :name, presence: true
-  validates :path, presence: true, uniqueness: true
+  validates :path, length: { in: 0..255 }, uniqueness: true
 
   def to_s
     self.name

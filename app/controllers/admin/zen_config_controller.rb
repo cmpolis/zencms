@@ -6,7 +6,7 @@ class Admin::ZenConfigController < AdminController
 
   def update
     @config = ZenConfig.instance
-    if @config.update_attributes(params[:zen_config].permit([:ga_tracking_id, :ga_enabled, :base_url, :admin_email, :twitter_handle]))
+    if @config.update_attributes(params[:zen_config].permit([:ga_tracking_id, :ga_enabled, :base_url, :admin_email, :twitter_handle, :name]))
     else
     end
     render :show

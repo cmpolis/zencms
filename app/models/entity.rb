@@ -20,6 +20,14 @@ class Entity
     self.where(default_path: path).first
   end
 
+  def primary_name
+    self.primary_val || self.type.name
+  end
+
+  def primary_val
+    self.type.primary_prop ? self.values[self.type.primary_property] : nil
+  end
+
   def has_required_values
     return if self.type.nil?
 

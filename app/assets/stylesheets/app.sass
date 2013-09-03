@@ -1,26 +1,4 @@
-// Colors
-//    from: design-seeds.com, 'Color Curl', posted 8/12/13
-$drkGrey:   #84879A
-$navy:      #0F2B3D
-$drkBlue:   #11476A
-$blue90:    #2B6184
-$blue80:    #447A9D
-$blue70:    #5E94B7
-$blue60:    #77ADD0
-$blue50:    #90C6E9
-$blue40:    #90C6E9
-$blue30:    #AAE0FF
-$blue20:    #DDFFFF
-$blue10:    #F6FFFF
-$blue05:    #FCFFFF
-$aqua:      #1E9BAA
-$mint:      #93C5CA
-$ltGrey:    #D5DCE0
-$white:     #FFFFFF
-
-$transitionDuration: 400ms
-
-////////////////
+@import 'constants'
 
 [name='layout[content]']  
   height: 300px
@@ -28,6 +6,7 @@ form
   margin-bottom: 0px
 *
   font-family: 'Open Sans', sans-serif
+a
   -webkit-transition: all $transitionDuration ease
   -moz-transition: all $transitionDuration ease
   -ms-transition: all $transitionDuration ease
@@ -50,6 +29,8 @@ body
   padding: 12px 30px !important
   &:hover
     background-color: $blue80
+  &.secondary
+    color: $drkBlue !important
 
 // Top bar
 .top-bar
@@ -59,9 +40,14 @@ body
     color: $blue10
     font-size: 22px
     font-weight: 300
+    &:hover
+      color: $blue60
 .top-bar-section a
   background: $blue90 !important
   font-weight: 300 !important
+  color: $blue10
+  &:hover
+    color: $blue60
 
 // Footer
 .footer
@@ -73,12 +59,15 @@ body
     font-size: 13px
 // Side navigation
 .left-nav
+  i
+    font-size: 16px !important
+    margin-right: 5px
   padding-left: 0px !important
   .section-container
     border: none !important
     margin-bottom: 0px !important
     &.options
-      border-bottom: 2px solid $blue90 !important
+      border-bottom: 4px solid $blue90 !important
     &.types
   section
     border-top: 1px solid $blue90 !important
@@ -87,10 +76,12 @@ body
       background-color: $drkBlue
     a
       padding: 15px 32px !important
-      color: $blue20 !important 
+      color: $blue10 !important 
       font-size: 14px !important
       &:hover
         color: $blue60 !important
+      &.active
+        color: $mint !important
 
 section
   border-top: 1px solid $blue80 !important
@@ -115,5 +106,7 @@ table
 // 
 .content .row
   max-width: none
+  .primary
+    font-weight: 700
 
 

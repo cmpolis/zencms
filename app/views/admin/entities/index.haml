@@ -4,7 +4,7 @@
   %thead
     %tr
       - for prop in @type.properties
-        %td #{prop}
+        %td{ :class => "#{prop.primary? ? 'primary' : ''}" } #{prop}
       %td Path
       %td Visit
       %td Edit
@@ -13,7 +13,7 @@
   - for entity in @entities
     %tr
       - for prop in @type.properties
-        %td #{entity.values[prop.to_s]}
+        %td{ :class => "#{prop.primary? ? 'primary' : ''}" } #{entity.values[prop.to_s]}
       %td= entity.default_path || 'Path not set'
       - if entity.default_path
         %td= link_to 'Visit', cms_page_path(entity.default_path)
@@ -29,7 +29,7 @@
       - for prop in @type.properties
         .row
           .small-4.columns
-            = f.label "values[#{prop.name}]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}"
+            = f.label "values[#{prop.name}]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}", class: "#{prop.primary? ? 'primary' : ''}"
             - if prop.text?
               = f.text_area "values[#{prop.name}]"
             - elsif prop.enum?

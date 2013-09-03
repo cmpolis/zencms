@@ -1,4 +1,4 @@
-%h1 Entity // #{@type.name}
+%h1 Entity // #{@entity.primary_name}
 %h5.subheader= link_to 'Preview', "/#{@entity.default_path}", target: '_blank'
 
 .container
@@ -7,7 +7,7 @@
       - for prop in @type.properties
         .row
           .small-4.columns
-            = label_tag "entity[values[#{prop.name}]]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}"
+            = label_tag "entity[values[#{prop.name}]]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}", class: "#{prop.primary? ? 'primary' : ''}"
             - if prop.text?
               = text_area_tag "entity[values[#{prop.name}]]", @entity.values[prop.name]
             - elsif prop.enum?
