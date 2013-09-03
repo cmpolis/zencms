@@ -63,4 +63,15 @@ class Layout
     dom.sub /<body>/i, "<body>#{insert}"
   end
 
+  def self.add_admin_attrs dom
+    html = Nokogiri::HTML.parse(dom)
+    puts '*' * 80
+    html.css('h1, h2, h3, h4, h5, h6, p, div, li, tr').each do |tag|
+      next if tag.matches? '.admin-topbar, .admin-topbar *'
+      tag['data-zen-editable'] = 'true'
+      tag['data-zen-id'] = ('%06x' % (rand * 0xffffff))
+    end
+    html.to_s
+  end
+
 end

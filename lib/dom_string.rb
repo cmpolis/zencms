@@ -1,0 +1,3 @@
+class DomString < String
+
+end

@@ -26,6 +26,7 @@ class PagesController < ApplicationController
       render text: "Entity not found with path: #{params[:path]}"
     else
       html = Layout.append_to_head(html, render_to_string('pages/_base', layout: false))
+      html = Layout.add_admin_attrs(html) if current_user and current_user.is_admin?
       render text: html
     end
   end
