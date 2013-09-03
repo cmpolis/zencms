@@ -1,5 +1,119 @@
+// Colors
+//    from: design-seeds.com, 'Color Curl', posted 8/12/13
+$drkGrey:   #84879A
+$navy:      #0F2B3D
+$drkBlue:   #11476A
+$blue90:    #2B6184
+$blue80:    #447A9D
+$blue70:    #5E94B7
+$blue60:    #77ADD0
+$blue50:    #90C6E9
+$blue40:    #90C6E9
+$blue30:    #AAE0FF
+$blue20:    #DDFFFF
+$blue10:    #F6FFFF
+$blue05:    #FCFFFF
+$aqua:      #1E9BAA
+$mint:      #93C5CA
+$ltGrey:    #D5DCE0
+$white:     #FFFFFF
+
+$transitionDuration: 400ms
+
+////////////////
+
 [name='layout[content]']  
   height: 300px
 form
   margin-bottom: 0px
+*
+  font-family: 'Open Sans', sans-serif
+  -webkit-transition: all $transitionDuration ease
+  -moz-transition: all $transitionDuration ease
+  -ms-transition: all $transitionDuration ease
+  -o-transition: all $transitionDuration ease
+  transition: all $transitionDuration ease
+h1, h2, h3, h4, h5, h6
+  font-family: 'Open Sans', sans-serif
+  color: $drkBlue
+body
+  // footer color (to avoid bottom whitespace)
+  background-color: $blue90
+.content
+  background-color: $blue05
+.button
+  border: none !important
+  background-color: $drkBlue
+  box-shadow: none
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  padding: 12px 30px !important
+  &:hover
+    background-color: $blue80
+
+// Top bar
+.top-bar
+  margin-bottom: 0px
+  background-color: $blue90
+  .name h1 a
+    color: $blue10
+    font-size: 22px
+    font-weight: 300
+.top-bar-section a
+  background: $blue90 !important
+  font-weight: 300 !important
+
+// Footer
+.footer
+  background-color: $blue90
+  color: $blue10
+  p
+    margin-top: 12px
+    font-weight: 300
+    font-size: 13px
+// Side navigation
+.left-nav
+  padding-left: 0px !important
+  .section-container
+    border: none !important
+    margin-bottom: 0px !important
+    &.options
+      border-bottom: 2px solid $blue90 !important
+    &.types
+  section
+    border-top: 1px solid $blue90 !important
+    //border: none !important
+    *
+      background-color: $drkBlue
+    a
+      padding: 15px 32px !important
+      color: $blue20 !important 
+      font-size: 14px !important
+      &:hover
+        color: $blue60 !important
+
+section
+  border-top: 1px solid $blue80 !important
+  //border: none !important
+  > p > a
+    background-color: $blue90
+  a
+    padding: 15px 32px !important
+    color: $blue10 !important 
+    font-size: 14px !important
+    &:hover
+      color: $blue60 !important
+
+table
+  border-spacing: 0
+  border: none
+  thead
+    tr td
+      background-color: $blue80
+      font-weight: 400
+      color: $blue10
+// 
+.content .row
+  max-width: none
+
 

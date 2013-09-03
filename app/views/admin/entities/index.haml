@@ -1,13 +1,15 @@
 %h2 #{@type.plural_name}
 
 %table
-  %tr
-    - for prop in @type.properties
-      %td #{prop}
-    %td Path
-    %td Visit
-    %td Edit
-    %td Remove
+  %thead
+    %tr
+      - for prop in @type.properties
+        %td #{prop}
+      %td Path
+      %td Visit
+      %td Edit
+      %td Remove
+  %tbody
   - for entity in @entities
     %tr
       - for prop in @type.properties
