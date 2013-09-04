@@ -2,7 +2,7 @@ class Property
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  KINDS = [:string, :text, :html, :image, :float, :integer, :array, :enum]
+  KINDS = [:string, :text, :html, :image, :float, :integer, :array, :enum, :date]
 
   field :name, type: String
   field :kind, type: Symbol

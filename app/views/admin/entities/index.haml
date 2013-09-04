@@ -34,6 +34,8 @@
               = f.text_area "values[#{prop.name}]"
             - elsif prop.enum?
               = select(:entity, "values[#{prop.name}]", prop.possible.collect { |val| [val, val]})
+            - elsif prop.image?
+              = select(:entity, "values[#{prop.name}]", Image.all.collect { |img| [img.name, img.id] })
               
             - else
               = f.text_field "values[#{prop.name}]"

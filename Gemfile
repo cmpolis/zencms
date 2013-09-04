@@ -5,11 +5,19 @@ gem 'rails', '4.0.0'
 
 gem 'devise'
 gem 'mongoid', github: 'mongoid/mongoid' # github: 'cmpolis/mongoid' #, '~> 3.0.0'
+# gem 'mongoid', '~> 3.1.0'
 # gem 'mongoid-versioning'
+
 gem 'haml'
 gem 'liquid'
 gem 'zurb-foundation', '~> 4.0.0'
 gem 'coveralls', require: false
+
+gem "fog"
+gem 'carrierwave'
+gem "carrierwave-mongoid", require: 'carrierwave/mongoid'
+#gem "carrierwave-mongoid", git: "git://github.com/jnicklas/carrierwave-mongoid.git"
+gem 'rmagick'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'

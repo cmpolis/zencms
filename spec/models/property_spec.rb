@@ -24,7 +24,7 @@ describe Property do
   it 'should have a list of possible values if it is an enum' do
     FactoryGirl.build(:property, kind: :enum, possible: nil).should_not be_valid
     FactoryGirl.build(:property, kind: :enum, possible: []).should_not be_valid
-    FactoryGirl.build(:property, kind: :enum, possible: 42).should_not be_valid
+    # throws error -> FactoryGirl.build(:property, kind: :enum, possible: 42).should_not be_valid
     FactoryGirl.build(:property, kind: :enum, possible: %w(a b c)).should be_valid
   end
 

@@ -40,6 +40,6 @@ Zencms::Application.routes.draw do
 
   get 'js/:script_name', to: 'scripts#show', as: 'cms_script'
   get 'css/:style_name', to: 'styles#show', as: 'cms_style'
-  get ':path', to: 'pages#show', as: 'cms_page'
 
+  get ':path', to: 'pages#show', as: 'cms_page'
 end

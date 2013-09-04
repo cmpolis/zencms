@@ -19,6 +19,9 @@
 *.swp
 *.swo
 
+config/initializers/carrierwave.rb
+public/uploads
+
 *.DS_STORE
 
 # Coverage test results
