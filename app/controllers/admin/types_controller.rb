@@ -11,25 +11,31 @@ class Admin::TypesController < AdminController
   def destroy
     @type = Type.find(params[:type_id])
     if @type.destroy
-      redirect_to admin_types_path
+      flash[:success] = "Type successfully destroyed."
     else
-      render text: 'Could not destroy type'
+      flash[:alert] = "Unable to destroy type."
     end
+    redirect_to admin_types_path
   end
 
   def create
     @type = Type.new(params[:type].permit(:name))
     if @type.save
+      flash[:success] = "Type successfully created."
       redirect_to admin_type_path(@type)
     else
-      render text: "#{@type.errors}"
+      flash[:alert] = "Unable to create type: #{@type.errors.full_messages}"
+      redirect_to admin_types_path
     end
   end
 
   def update
     @type = Type.find(params[:id])
-    @type.update_attributes(params[:type].permit(:primary_property, :layout_id))
-    flash[:errors] = "Unable to update #{@type}." unless @type.save
+    if @type.update_attributes(params[:type].permit(:primary_property, :layout_id))
+      flash[:success] = "Type successfully updated."
+    else
+      flash[:alert] = "Unable to update type: #{@type.errors.full_messages}" 
+    end
     redirect_to admin_type_path(@type)
   end
 end

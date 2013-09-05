@@ -11,9 +11,11 @@ class Admin::CollectionsController < AdminController
   def create
     @collection = Collection.new(params[:collection].permit(:name))
     if @collection.save
+      flash[:success] = "Collection successfully created."
       redirect_to admin_collection_path(@collection)
     else
-      render text: "#{@collection.errors}"
+      flash[:alert] = "Unable to create collection: #{@collection.errors.full_messages}"
+      redirect_to admin_collections_path
     end
   end
 end

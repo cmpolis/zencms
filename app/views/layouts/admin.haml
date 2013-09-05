@@ -21,6 +21,10 @@
     .content
       .row
         .large-9.push-3.columns
+          - flash.each do |name, msg|
+            = content_tag :div, class: "alert-box #{name}" do
+              = msg
+              %a.close(href='#') &times;
           = yield
         .large-3.pull-9.columns.left-nav
           .section-container.options

@@ -4,11 +4,12 @@ class Admin::PropertiesController < AdminController
     @type = Type.find(params[:type_id])
     @prop = @type.properties.find(params[:id])
     if @prop.nil?
-      render text: 'Could not find property'
+      flash[:alert] = "Unable to destroy property."
     else
       @prop.destroy
-      redirect_to admin_type_path(@type)
+      flash[:success] = "Property successfully destroyed."
     end
+    redirect_to admin_type_path(@type)
   end
 
   def create
@@ -18,20 +19,22 @@ class Admin::PropertiesController < AdminController
 
     @prop = @type.properties.build(prop.permit(:name, :kind, :possible => []))
     if @prop.save
-      redirect_to admin_type_path(@type)
+      flash[:success] = "Property successfully created."
     else
-      render text: "#{@prop.errors.messages}"
+      flash[:alert] = "Unable to create property: #{@prop.errors.full_messages}"
     end
+    redirect_to admin_type_path(@type)
   end
 
   def update
     @type = Type.find(params[:type_id])
     @prop = @type.properties.find(params[:id])
     if @prop.update_attributes(params[:property].permit(:req))
-      redirect_to admin_type_path(@type)
+      flash[:success] = "Property successfully updated."
     else
-      render text: "#{@prop.errors}"
+      flash[:alert] = "Unable to update property: #{@prop.errors.full_messages}"
     end
+    redirect_to admin_type_path(@type)
   end
 
 end

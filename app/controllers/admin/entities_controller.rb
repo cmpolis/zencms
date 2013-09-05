@@ -14,9 +14,11 @@ class Admin::EntitiesController < AdminController
     @type = Type.find(params[:type_id])
     @entity = Entity.find(params[:id])
     if @type.nil? or @entity.nil?
-      render text: 'Could not delete entity'
+      flash[:alert] = "Could not delete entity."
+      redirect_to admin_entity_list_path(@type.name)
     else
       @entity.destroy
+      flash[:success] = "Entity successfully destroyed."
       redirect_to admin_entity_list_path(@type.name)
     end
   end
@@ -26,9 +28,9 @@ class Admin::EntitiesController < AdminController
     @entity = @type.entities.build(
                params[:entity].permit(:values => params[:entity][:values].keys))
     if @entity.save
-    
+      flash[:success] = "Entity successfully created."
     else
-
+      flash[:alert] = "Unable to create entity: #{@entity.errors.full_messages}"
     end
     redirect_to admin_entity_list_path(@type.name)
   end
@@ -41,6 +43,12 @@ class Admin::EntitiesController < AdminController
      @entity.update_attributes(
         params[:entity].permit(:default_path))
     # TODO: rewrite two statements above this into one...
+
+    if @entity.errors.empty?
+      flash[:success] = "Entity successfully updated."
+    else
+      flash[:alert] = "Unable to update entity: #{@entity.errors.full_messages}"
+    end
     redirect_to admin_entity_path(@type.name, @entity.id)
   end
 end

@@ -36,7 +36,7 @@ class Entity
       missing << prop.name if prop.req and self.values[prop.name].blank?
     end
     if missing.any?
-      errors.add(:values, "missing required value for: #{missing}")
+      errors.add(:values, "missing required value for: #{missing.join(", ")}")
     end
   end
 

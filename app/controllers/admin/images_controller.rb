@@ -11,9 +11,11 @@ class Admin::ImagesController < AdminController
   def create
     @image = Image.new(params[:image].permit(:name, :file))
     if @image.save
+      flash[:success] = "Image successfully created."
       redirect_to admin_image_path(@image)
     else
-      render text: "#{@image.errors}"
+      flash[:alert] = "Unable to create image: #{@image.errors.full_messages}"
+      redirect_to admin_images_path
     end 
   end
 
