@@ -55,6 +55,20 @@ describe Entity do
     @entity.updated_at.should_not be_nil
   end
 
+  it 'should convert empty strings to nil' do
+    @prop = FactoryGirl.build(:property, kind: :enum, possible: %w(a b c))
+    @type = FactoryGirl.create(:type, properties: [@prop])
+    puts @type.save
+    puts '*' * 80
+    puts @type.errors.full_messages
+    @entity = FactoryGirl.build(:entity, type: @type,
+                                         values: { @prop.name => 'z' })
+    @entity.should_not be_valid
+    @entity.values[@prop.name] = ''
+    @entity.save
+    @entity.reload.values[@prop.name].should be_nil
+  end
+
   it 'should track versions'
 
 end

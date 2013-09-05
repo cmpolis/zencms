@@ -13,6 +13,7 @@ class Entity
   validate :has_required_values
   validate :values_are_valid
 
+  before_validation :blank_values_to_nil
   before_validation :convert_value_keys_to_strings
   before_create :generate_default_path
 
@@ -57,6 +58,12 @@ class Entity
         self.values[key.to_s] = self.values[key]
         self.values.delete(key)
       end
+    end
+  end
+
+  def blank_values_to_nil
+    self.values.each do |name, val|
+      self.values[name] = nil if self.values[name].blank?
     end
   end
 

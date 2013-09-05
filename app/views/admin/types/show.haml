@@ -16,7 +16,6 @@
                 .small-4.columns
                   = label :req, 'Required?', class: 'left'
                   = check_box :property, :req, {checked: property.req}, 'true', 'false'
-                  %p
               .row
                 .small-4.columns
                   = f.submit 'Update Property', class: 'tiny button'
@@ -35,7 +34,6 @@
       .small-4.columns
         = f.label :kind
         = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
-        %p
     .row
       .small-4.columns
         = f.label :possible, 'Possible values(for enum type)'
@@ -59,7 +57,6 @@
         = f.select :primary_property, @type.properties.collect(&:name),
                     selected: @type.primary_property,
                     include_blank: false
-        %p
     .row
       .small-4.columns
         = f.submit 'Update', class: 'small button'
