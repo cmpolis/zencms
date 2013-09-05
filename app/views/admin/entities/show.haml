@@ -11,7 +11,11 @@
             - if prop.text?
               = text_area_tag "entity[values[#{prop.name}]]", @entity.values[prop.name]
             - elsif prop.enum?
-              = select(:entity, "values[#{prop.name}]", prop.possible.collect {     |val| [val, val]})
+              = select_tag "entity[values[#{prop.name}]]", options_for_select(prop.possible, @entity.values[prop.name]), include_blank: true
+            - elsif prop.image?
+              - if img = Image.find(@entity.values[prop.name])
+                = image_tag img.file_url
+              = select_tag "entity[values[#{prop.name}]]", options_from_collection_for_select(Image.all, 'id', 'name', @entity.values[prop.name]), include_blank: true
             - else
               = text_field_tag "entity[values[#{prop.name}]]", @entity.values[prop.name]
       = f.label :default_path, 'Default Path'

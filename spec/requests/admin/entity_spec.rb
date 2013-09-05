@@ -41,7 +41,10 @@ describe 'Entity' do
                   FactoryGirl.build(:property, name: 'array',
                                                kind: :array),
                   FactoryGirl.build(:property, name: 'text',
-                                               kind: :text)]
+                                               kind: :text),
+                  FactoryGirl.build(:property, name: 'image',
+                                               kind: :image)]
+        @image = FactoryGirl.create(:image)
         @type = FactoryGirl.create(:type, properties: @props)
         visit "/admin/entity/#{@type}"
       end
@@ -55,7 +58,11 @@ describe 'Entity' do
       end
 
       it "Shows a select with correct enum values" do
-        page.should have_select 'Enum', options: %w(a b c)
+        page.should have_select 'entity_values_enum', options: %w(a b c).push("")
+      end
+
+      it "Shows a select with correct image values" do
+        page.should have_select 'entity_values_image', options: [@image.name, ""]
       end
 
     end

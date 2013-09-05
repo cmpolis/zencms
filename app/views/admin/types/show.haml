@@ -10,6 +10,8 @@
         .content
           %p{'data-slug' => "panel#{ndx}"}
             = form_for property, url: admin_type_property_path(@type, property) do |f|
+              - if property.enum?
+                %p Possible: #{property.possible.join(", ")}
               .row
                 .small-4.columns
                   = label :req, 'Required?', class: 'left'
@@ -34,6 +36,10 @@
         = f.label :kind
         = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
         %p
+    .row
+      .small-4.columns
+        = f.label :possible, 'Possible values(for enum type)'
+        = f.text_field :possible, placeholder: 'comma seperated'
     .row
       .small-4.columns
         = f.submit 'Add', class: 'small button'

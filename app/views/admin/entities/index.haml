@@ -29,13 +29,13 @@
       - for prop in @type.properties
         .row
           .small-4.columns
-            = f.label "values[#{prop.name}]", "#{prop.name.capitalize}  #{prop.required? ? '(required)' : ''}", class: "#{prop.primary? ? 'primary' : ''}"
+            = f.label "values[#{prop.name}]", "#{prop.name.capitalize}#{prop.required? ? ' (required)' : ''}", class: "#{prop.primary? ? 'primary' : ''}"
             - if prop.text?
               = f.text_area "values[#{prop.name}]"
             - elsif prop.enum?
-              = select(:entity, "values[#{prop.name}]", prop.possible.collect { |val| [val, val]})
+              = select_tag "entity[values[#{prop.name}]]", options_for_select(prop.possible), include_blank: true
             - elsif prop.image?
-              = select(:entity, "values[#{prop.name}]", Image.all.collect { |img| [img.name, img.id] })
+              = select_tag "entity[values[#{prop.name}]]", options_from_collection_for_select(Image.all, 'id', 'name'), include_blank: true
               
             - else
               = f.text_field "values[#{prop.name}]"

@@ -27,7 +27,7 @@ describe Admin::ImagesController do
   end
 
   describe "POST #create" do
-    it "creates a new imge object" do
+    it "creates a new image object" do
       expect {
         file = File.join(%w(spec support placekitten.jpeg).unshift(Rails.root))
         post :create, image: { name: 'newtestimg',

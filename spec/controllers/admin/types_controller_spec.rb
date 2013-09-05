@@ -28,6 +28,14 @@ describe Admin::TypesController do
     end
   end
 
+  describe "POST #create" do
+    it "creates a new type object" do
+      expect {
+        post :create, type: { name: 'newtesttype' }
+      }.to change(Type, :count).by(1)
+    end
+  end
+
   describe "PUT #update" do
     it "should update type attributes" do
       @layout = FactoryGirl.create(:layout)

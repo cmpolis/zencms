@@ -13,7 +13,10 @@ class Admin::PropertiesController < AdminController
 
   def create
     @type = Type.find(params[:type_id])
-    @prop = @type.properties.build(params[:property].permit(:name, :kind))
+    prop = params[:property]
+    prop[:possible] = prop[:possible].split(/\s*\,\s*/) if prop[:possible]
+
+    @prop = @type.properties.build(prop.permit(:name, :kind, :possible => []))
     if @prop.save
       redirect_to admin_type_path(@type)
     else
