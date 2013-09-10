@@ -58,9 +58,6 @@ describe Entity do
   it 'should convert empty strings to nil' do
     @prop = FactoryGirl.build(:property, kind: :enum, possible: %w(a b c))
     @type = FactoryGirl.create(:type, properties: [@prop])
-    puts @type.save
-    puts '*' * 80
-    puts @type.errors.full_messages
     @entity = FactoryGirl.build(:entity, type: @type,
                                          values: { @prop.name => 'z' })
     @entity.should_not be_valid

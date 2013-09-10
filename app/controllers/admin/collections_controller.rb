@@ -18,4 +18,14 @@ class Admin::CollectionsController < AdminController
       redirect_to admin_collections_path
     end
   end
+
+  def update
+    @collection = Collection.find(params[:id])
+    if @collection.update_attributes(params[:collection].permit(:name, :entity_ids => []))
+      flash[:success] = "Collection successfully updated."
+    else
+      flash[:alert] = "Unable to update collection: #{@collection.errors.full_messages}"
+    end
+    redirect_to admin_collection_path(@collection)
+  end
 end

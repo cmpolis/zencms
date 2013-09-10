@@ -12,4 +12,11 @@ class Collection
     self.name
   end
 
+  # Returns array of entities in same order as ids in entity_ids
+  #  (without n+1 query)
+  def ordered_entities
+    ids = self.entity_ids
+    self.entities.sort { |a, b| ids.index(a.id) <=> ids.index(b.id) }
+  end
+
 end

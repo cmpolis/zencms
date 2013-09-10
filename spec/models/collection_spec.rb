@@ -31,4 +31,12 @@ describe Collection do
     @collection.should be_valid
   end
 
+  it 'can keep entity order' do
+    entities = Entity.all.to_a
+    @collection.update_attributes(entities: entities).should be_true
+    @collection.ordered_entities.first.should eql(entities.first)
+    @collection.update_attributes(entities: entities.reverse).should be_true
+    @collection.ordered_entities.first.should eql(entities.last)
+  end
+
 end

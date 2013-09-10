@@ -1,1 +1,26 @@
 %h2 #{@collection}
+
+= form_for @collection, url: admin_collection_path(@collection) do |f|
+  .row
+    .small-4.columns
+      = f.label :name
+      = f.text_field :name
+  %fieldset
+    %legend Entities
+    %ul.entity-list
+      - for entity in @collection.ordered_entities
+        %li.entity(data-entity-id='#{entity.id}')
+          = hidden_field_tag 'collection[entity_ids][]', entity.id
+          %span.entity-name= entity.primary_name
+          %a(onclick='entityUp(this)') Move up
+          %a(onclick='entityDown(this)') Move down
+          %a(onclick='entityRemove(this)') Remove
+    - for type in Type.all
+      .row
+        .small-4.columns
+          %label Add #{type}
+          = select_tag "add_#{type.id}", options_from_collection_for_select(type.entities, "id", "primary_name")
+          %a.tiny.button.secondary(onclick='addEntity("#add_#{type.id}");') Add
+  .row
+    .small-4.columns
+      = f.submit 'Update', class: 'small button'

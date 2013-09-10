@@ -34,7 +34,7 @@
       .small-4.columns
         = f.label :kind
         = select(:property, :kind, Property::KINDS.collect { |k| [k.capitalize, k] })
-    .row
+    .row.type-possible(style='display: none;')
       .small-4.columns
         = f.label :possible, 'Possible values(for enum type)'
         = f.text_field :possible, placeholder: 'comma seperated'
