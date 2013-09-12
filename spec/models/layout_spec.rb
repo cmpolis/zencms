@@ -43,7 +43,7 @@ describe Layout do
     @entity = FactoryGirl.create(:entity, type: @type, 
                                           values: { name: 'Bob',
                                                     color: 'Red' })        
-    @layout.parse_with_entity(@entity).should eq "<h1>Red</h1>"
+    @layout.parse_with_entity(@entity).should include "<h1>Red</h1>"
   end
 
   it 'can have a parent layout' do
@@ -83,6 +83,30 @@ describe Layout do
 
     result = @layout.parse_with_entity @entity
     result.should include 'car'
+  end
+
+  context 'Live editing' do
+    before(:each) do
+      @layout = FactoryGirl.create(:layout, content: '<p>original</p>',
+           admin_edit: '<p data-zen-editable="true" data-zen-id="a1">original</p>')
+    end
+
+    # it 'generates admin attributes' do
+    #   html = Layout.add_admin_attrs(@layout.content)
+    #   html.should include 'original' 
+    #   html.should include 'data-zen-id=' 
+    #   html.should include 'data-zen-editable=' 
+    # end
+
+    it 'can merge live edits' do
+      @layout.merge_edit('a1', '<p>new content</p>')
+      @layout.content.should include 'new content'
+    end
+
+    it 'adds layout id tag when parsing' do
+      parsed = @layout.parse(true)
+      parsed.should include 'data-zen-layout'
+    end
   end
 
   context 'With config object' do

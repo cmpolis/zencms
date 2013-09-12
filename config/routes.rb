@@ -27,6 +27,7 @@ Zencms::Application.routes.draw do
       resources :styles, controller: 'layouts/styles'
     end
     resources :statics
+    resources :edit, only: [:create]
     resource :config, controller: 'zen_config'
 
     # Dynamic resource names...
